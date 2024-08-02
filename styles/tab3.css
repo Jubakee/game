@@ -1,0 +1,58 @@
+.character-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0; /* Light background for RPG feel */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.character-portrait img {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.character-stats {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.character-stats h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 10px; /* Space between items */
+    width: 100%; /* Full width */
+}
+
+.item-slot {
+    background-color: #fff;
+    border: 2px solid #aaa; /* Border to resemble item slots */
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    position: relative; /* To position the icon */
+}
+
+.item-slot.empty {
+    background-color: #e0e0e0; /* Lighter color for empty slots */
+    border: 2px dashed #bbb; /* Dashed border for empty slots */
+}
+
+.item-icon {
+    width: 32px; /* Adjust size as needed */
+    height: 32px; /* Adjust size as needed */
+    margin-bottom: 5px; /* Space between icon and name */
+}
+
+.item-name {
+    font-size: 14px;
+    color: #333; /* Adjust color for readability */
+}
