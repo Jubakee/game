@@ -85,7 +85,6 @@ function updateGameUI() {
 function updateBalance() {
     playerData.playerBalance += playerData.playerIncome;
     playerData.playerLvlEXP += playerData.playerIncome;
-    
     levelUp();
     savePlayerData();
     updateGameUI();
@@ -119,7 +118,6 @@ function calculateMaxCoinsForNextLevel(level) {
     const c = 10; // Minimum requirement remains the same
     return Math.floor(a * Math.pow(level, b)) + c; // Calculate required coins for next level
 }
-
 
 // Initialization
 //resetGame();
