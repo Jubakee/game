@@ -109,7 +109,7 @@ body {
 }
 
 .footer-icon.active {
-  transform: scale(1.5); /* Increase the size */
+  transform: scale(1.4); /* Increase the size */
   transition: transform 0.3s ease; /* Smooth transition */
 }
 
