@@ -34,7 +34,29 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
-  padding: 20px;
+  padding: 10px;
+}
+
+
+#level-exp-container {
+
+}
+
+#level-exp-bar {
+    width: 120px; /* Set your desired width */
+    height: 10px; /* Set your desired height */
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+#level-exp-fill {
+    height: 100%;
+    width: 0%; /* Start at 0% */
+    background: linear-gradient(90deg, #76c7c0, #34a0a4); /* Gradient effect */
+    transition: width 0.3s ease; /* Smooth transition for width changes */
 }
 
 /* Main Content */
