@@ -4,8 +4,20 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <!-- Add Google Fonts link for Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="styles/tab2.css">
   <title>Telegram Web App</title>
+
+  <style>
+    /* Apply the font to the whole document */
+    body {
+      font-family: 'Montserrat', sans-serif; /* Set the font family */
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -35,7 +47,8 @@
       </section>
 
       <section id="tab2" class="tab-content">
-        <h2>Tab 2</h2>
+        <div class="shop-container" id="shop-container">
+        </div>
       </section>
 
       <section id="tab3" class="tab-content">
@@ -75,9 +88,9 @@
       </div>
   </div>
   
-
   <script src="index.js"></script>
   <script src="scripts/tabs.js"></script>
-
+  <script src="items/items.js"></script>
+  <script src="scripts/tab2.js"></script>
 </body>
 </html>
