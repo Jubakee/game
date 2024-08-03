@@ -17,7 +17,7 @@
     align-items: center;
     border-radius: 8px;
     /* border: 1px solid #333; Add a thick white border */
-    background-color: #666;
+    background-color: #333;
     color: #fff;
 }
 
@@ -57,12 +57,12 @@
 
 .item-name {
     
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
 }
 
 .item-description {
-    font-size: 12px;
+    font-size: 10px;
     margin-top: 5px;
     padding: 10px;
     background: rgba(0, 0, 0, 0.2); /* Darker background */
@@ -70,7 +70,7 @@
 }
 
 .item-price {
-    font-size: 14px;
+    font-size: 12px;
     background: rgba(0, 0, 0, 0.1); /* Darker background */
 
     /* border-top: 1px solid #e0e0e0; */
