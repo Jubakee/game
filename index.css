@@ -10,7 +10,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #fff;
+  background-color: #666;
+
   
 }
 
@@ -19,6 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
+
 }
 
 /* Header Styles */
@@ -26,9 +28,9 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #f8f9fa;
   z-index: 1000;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: #333;
+  color: #fff;
 }
 
 .header {
@@ -37,12 +39,12 @@ body {
   align-items: center;
   font-size: 12px;
   padding: 20px;
-  
+
 }
 
 
 #level-exp-container {
-
+  border-bottom: 1px solid #fff;
 }
 
 #level-exp-bar {
@@ -67,12 +69,13 @@ body {
   padding-top: 80px; /* Space for fixed header */
   padding-bottom: 100px; /* Space for fixed footer */
   flex: 1;
+  background-color: #666;
 }
 
 /* Tab Content */
 .tab-content {
   display: none;
-  background-color: #fff;
+  background-color: #666;
 }
 
 .tab-content.active {
@@ -80,6 +83,7 @@ body {
   width: 100%; /* Full width */
   margin: 0 auto; /* Center it within the width */
   text-align: center;
+  
 }
 
 /* Footer Styles */
@@ -87,12 +91,13 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #f8f9fa;
-  border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-around;
-  padding: 20px 0;
+  padding: 10px 0;
   font-size: 12px;
+  background-color: #333;
+      border-top: 1px solid #fff;
+  color: #fff;
 }
 
 .footer-item {
@@ -102,6 +107,12 @@ body {
   display: flex; /* Use flexbox for alignment */
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center align items */
+  padding: 10px;
+  /* border-right: 1px solid #fff; */
+}
+
+.footer-item:last-child {
+  /* border-right: none; Remove border-right for the last item */
 }
 
 .footer-icon {
@@ -112,14 +123,20 @@ body {
 }
 
 .footer-icon.active {
-  transform: scale(1.4); /* Increase the size */
+
+  transform: scale(1.5); /* Increase the size */
   transition: transform 0.3s ease; /* Smooth transition */
 
 }
 
+.footer-item.active{
+
+  background: rgba(0, 0, 0, 0.4); /* Darker background */
+  border-radius: 10px;
+}
+
 .footer-text {
   font-size: 12px; /* Font size */
-  color: #333; /* Text color */
   text-align: center; /* Center align text */
   margin-top: 10px; /* Margin from the icon */
 }

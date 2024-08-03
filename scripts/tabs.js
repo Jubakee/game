@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hideAllTabs = () => {
         tabContents.forEach(tab => tab.classList.remove("active")); // Hide all tabs
-        footerItems.forEach(item => item.querySelector('.footer-icon').classList.remove('active')); // Remove active class from all icons
+        footerItems.forEach(item => {
+            item.classList.remove('active'); // Remove active class from footer items
+            item.querySelector('.footer-icon').classList.remove('active'); // Remove active class from icons
+        });
     };
 
     const showTab = (tabId) => {
@@ -14,7 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedTab) {
             selectedTab.classList.add("active");
             const activeFooterItem = Array.from(footerItems).find(item => item.getAttribute("data-tab") === tabId);
-            activeFooterItem?.querySelector('.footer-icon').classList.add('active'); // Add active class to the corresponding icon if found
+            if (activeFooterItem) {
+                activeFooterItem.classList.add('active'); // Add active class to footer item
+                activeFooterItem.querySelector('.footer-icon').classList.add('active'); // Add active class to icon
+            }
         }
     };
 

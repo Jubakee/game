@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = [
         { id: '1', name: 'WOODEN CHEST', price: 100, img: 'assets/chest_wooden.png', description: 'WOODEN CHEST', rarity: 'Common', level: '1', isOpen: false },
         { id: '2', name: 'SILVER CHEST', price: 200, img: 'assets/chest_silver.png', description: 'SILVER CHEST', rarity: 'Uncommon', level: '2', isOpen: false },
-        { id: '3', name: 'GOLD CHEST', price: 300, img: 'assets/chest_gold.png', description: 'GOLDEN CHEST', rarity: 'Rare', level: '3', isOpen: false },
+        { id: '3', name: 'GOLDEN CHEST', price: 300, img: 'assets/chest_gold.png', description: 'GOLDEN CHEST', rarity: 'Rare', level: '3', isOpen: false },
         { id: '4', name: 'DIAMOND CHEST', price: 400, img: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'Unique', level: '4', isOpen: false },
     ];
 
