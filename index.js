@@ -77,7 +77,7 @@ function loadPlayerData() {
 // Update the game UI with current player data
 function updateGameUI() {
     document.getElementById('coins').textContent = playerData.playerBalance.toLocaleString();
-    document.getElementById('level-value').textContent = `Lvl. ${playerData.playerLevel}`;
+    document.getElementById('level-value').textContent = `LVL ${playerData.playerLevel}`;
     updateLevelBar();
 }
 
