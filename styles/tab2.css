@@ -1,8 +1,8 @@
 .shop-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 3 items in each row */
-    gap: 20px;
-    padding: 20px;
+    gap: 10px;
+    padding: 15px;
     background-color: white;
 }
 
@@ -72,7 +72,7 @@
 .item-price {
     font-size: 12px;
     background: rgba(0, 0, 0, 0.1); /* Darker background */
-
+    font-weight: bold;
     /* border-top: 1px solid #e0e0e0; */
 
     padding: 10px;

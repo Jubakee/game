@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${item.img}" alt="${item.name}">
             <div class="item-info">
                     <div class="item-description">${item.description}</div>
-                <div class="item-price">💵 ${item.price}</div>
+                <div class="item-price">${item.price}</div>
             </div>
         `;
 
