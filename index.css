@@ -47,7 +47,7 @@ body {
 #level-container, #coins-container {
   display: flex;
   align-items: center;
-  background: rgba(0, 0, 0, 0.4); /* Darker background */
+  background: rgba(0, 0, 0, 0.8); /* Darker background */
   padding: 5px;
   border-radius: 10px;
 }
@@ -60,15 +60,9 @@ body {
 }
 
 #level-value, .coins-value {
-  font-size: 14px; /* Increase font size */
+  font-size: 11px; /* Increase font size */
   color: #fff; /* Gold color for better visibility */
   margin-right: 10px; /* Add space between icon and text */
-
-}
-
-#level-exp-container {
-  width: 100%;
-  margin-left: 15px;
 
 }
 
@@ -77,11 +71,11 @@ body {
 
 
 #level-exp-bar {
-  width: 150px; /* Set a specific width for the bar */
+  width: 100px; /* Set a specific width for the bar */
   height: 10px; /* Decrease height */
   background-color: #333; /* Dark background for the bar */
   border-radius: 10px;
-  margin-right: 5px;
+  margin-right: 10px;
   overflow: hidden;
   /* box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5); Inner shadow for depth */
   /* border: 2px solid #fff; Gold border */
