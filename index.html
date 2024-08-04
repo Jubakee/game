@@ -103,7 +103,39 @@
       </div>
   </div>
   
-
+  <div id="item-overlay" class="item-overlay">
+    <div class="overlay-content">
+        <button id="close-overlay" class="close-button">X</button>
+        <h2 id="overlay-item-name"></h2>
+        <img id="overlay-item-image" alt="Item Image" />
+        <p id="overlay-item-description"></p>
+        
+        <div class="overlay-details">
+          <div class="detail-item">
+              <strong>RARITY</strong> <span id="overlay-item-rarity" class="detail-value"></span>
+          </div>
+          <div class="detail-item">
+              <strong>REQ LVL</strong> <span id="overlay-item-level" class="detail-value"></span>
+          </div>
+          <div class="detail-item">
+              <strong>PRICE</strong> 
+              <span class="detail-value">
+                  <img src="assets/currency.png" alt="Currency Icon" class="price-icon"> 
+                  <span id="overlay-item-price"></span>
+              </span>
+          </div>
+      </div>
+      
+      
+      <div class="quantity-container">
+        <button class="quantity-button" id="decrease-quantity">-</button>
+        <input type="number" id="item-quantity" value="1" min="1" class="quantity-input" />
+        <button class="quantity-button" id="increase-quantity">+</button>
+    </div>
+    
+        <button id="purchase-button" class="purchase-button">BUY</button>
+    </div>
+</div>
 
 
 
@@ -111,7 +143,5 @@
   <script src="scripts/tabs.js"></script>
   <script src="items/items.js"></script>
   <script src="scripts/tab2.js"></script>
-
-  
 </body>
 </html>
