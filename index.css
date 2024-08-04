@@ -7,13 +7,21 @@
   
 }
 
-/* Other existing styles */
-
-:focus {
-  outline: none !important;
+/* Apply to all elements */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Additional styles */
+/* Or apply to specific elements, for example buttons */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* You can combine with :focus to remove the outline as well */
+button:focus {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
 
 
 body {
