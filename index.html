@@ -105,7 +105,7 @@
   
   <div id="item-overlay" class="item-overlay">
     <div class="overlay-content">
-        <button id="close-overlay" class="close-button">X</button>
+        <button id="close-overlay" class="close-button">&times;</button>
         <h2 id="overlay-item-name"></h2>
         <img id="overlay-item-image" alt="Item Image" />
         <p id="overlay-item-description"></p>
@@ -115,7 +115,7 @@
               <strong>RARITY</strong> <span id="overlay-item-rarity" class="detail-value"></span>
           </div>
           <div class="detail-item">
-              <strong>REQ LVL</strong> <span id="overlay-item-level" class="detail-value"></span>
+              <strong>LEVEL</strong> <span id="overlay-item-level" class="detail-value"></span>
           </div>
           <div class="detail-item">
               <strong>PRICE</strong> 
@@ -132,10 +132,22 @@
         <input type="number" id="item-quantity" value="1" min="1" class="quantity-input" />
         <button class="quantity-button" id="increase-quantity">+</button>
     </div>
-    
+  
         <button id="purchase-button" class="purchase-button">BUY</button>
     </div>
 </div>
+
+<div id="confirmation-modal" class="modal">
+  <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <p id="confirmation-message"></p>
+      <div class="modal-actions">
+          <button id="confirm-purchase" class="confirm-button">YES</button>
+          <button id="cancel-purchase" class="cancel-button">CANCEL</button>
+      </div>
+  </div>
+</div>
+
 
 
 

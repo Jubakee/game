@@ -37,6 +37,8 @@
     border-radius: 10px;
     background-color: #333;
     color: #fff;
+    border: 1px solid #888;
+
 }
 
 .shop-item img {
@@ -110,7 +112,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.3);
 
     justify-content: center;
     align-items: center;
@@ -120,6 +122,7 @@
 
 .overlay-content {
     background-color: #333;
+    border: 1px solid #888;
 
     border-radius: 10px;
     text-align: center;
@@ -155,6 +158,7 @@ h2 {
 
 }
 
+
 .overlay-details {
     padding: 20px;
 }
@@ -167,6 +171,7 @@ h2 {
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bottom border for separation */
     font-size: 12px;
+
 }
 
 .detail-item:last-child {
@@ -177,7 +182,6 @@ h2 {
     display: flex; /* Use flexbox to align icon and price text */
     align-items: center; /* Center items vertically */
     color: #fff; /* Color for value text */
-    font-weight: bold; /* Bold for emphasis */
     font-size: 11px; /* Font size for values */
     margin-left: 10px; /* Space between label and value */
 }
@@ -206,6 +210,8 @@ h2 {
     text-align: center; /* Center text in input */
     height: 40px; /* Fixed height for buttons */
     width: 40px; /* Fixed width for consistency */
+    font-size: 16px; /* Increased font size */
+
 }
 
 .quantity-input {
@@ -238,11 +244,111 @@ h2 {
 
 .close-button {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 5px;
+    right: 10px;
     background: transparent;
     border: none;
-    font-size: 12px;
-    color: #fff; /* White color for close button */
+
+
+    color: #aaa;
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1002; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    position: absolute; /* Position it relative to the modal */
+    top: 50%; /* 50% from the top */
+    left: 50%; /* 50% from the left */
+    transform: translate(-50%, -50%); /* Offset by half its own width and height */
+    background-color: #1e1e1e;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+
+
+    color: #aaa;
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.modal-actions {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    padding: 10px;
+}
+
+
+.confirm-button, .cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
+    margin: 0 10px; /* Add horizontal margin for spacing */
+    font-size: 12px;
+}
+
+
+.confirm-button {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+.cancel-button {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.confirm-button:hover {
+    background-color: #45a049;
+}
+
+.cancel-button:hover {
+    background-color: #d32f2f;
+}
+
+
+.confirm-price {
+    display: inline-flex; /* Use inline-flex to keep icon and text aligned */
+    align-items: center; /* Center items vertically */
+    vertical-align: middle; /* Center align the icon */
+
+}
+
+#confirm-icon {
+    width: 24px; /* Set a width for the icon */
+    height: 24px; /* Set a height for the icon */
+    margin-right: 5px; /* Space between the icon and text */
+
+}
+
+#confirmation-message {
+    font-size: 16px; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+    margin: 10px 0; /* Add some margin above and below the message */
+    text-align: center; /* Center the text */
+    color: #fff; /* Set a color for the text */
+    padding: 30px;
 }

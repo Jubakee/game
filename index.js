@@ -114,7 +114,7 @@ function calculateMaxCoinsForNextLevel(level) {
 }
 
 // Initialization
-// resetGame();
+//resetGame();
 setUserInfo();
 loadPlayerData();
 setInterval(updateBalance, 1000);
