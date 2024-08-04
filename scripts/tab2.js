@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const shopContainer = document.getElementById('shop-container');
+    const itemOverlay = document.getElementById('item-overlay');
+    const closeOverlayButton = document.getElementById('close-overlay');
+    const itemQuantityInput = document.getElementById('item-quantity');
 
     // Predefined items for the shop
     const items = [
-        { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: 100, img: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'Common', level: '1', isOpen: false },
-        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: 200, img: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'Uncommon', level: '2', isOpen: false },
-        { id: '3', name: 'GOLDEN CHEST', type: 'Chest',price: 300, img: 'assets/chest_gold.png', description: 'A GOLDEN CHEST', rarity: 'Rare', level: '3', isOpen: false },
-        { id: '4', name: 'DIAMOND CHEST', type: 'Chest',price: 400, img: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'Unique', level: '4', isOpen: false },
+        { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: '1,000', img: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'COMMON', level: '10', isOpen: false },
+        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '5,000', img: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '25', isOpen: false },
+        { id: '3', name: 'GOLDEN CHEST', type: 'Chest', price: '10,000', img: 'assets/chest_gold.png', description: 'A GOLDEN CHEST', rarity: 'RARE', level: '50', isOpen: false },
+        { id: '4', name: 'DIAMOND CHEST', type: 'Chest', price: '50,000', img: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'UNIQUE', level: '100', isOpen: false },
     ];
 
     // Function to render shop items
@@ -17,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .forEach(item => {
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('shop-item');
+                
+                // Add click event listener to each item
+                itemElement.addEventListener('click', () => showItemOverlay(item));
 
                 itemElement.innerHTML = `
                     <div class="item-header">
@@ -44,15 +50,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+// After your function to show the item overlay
+function showItemOverlay(item) {
+    document.getElementById('overlay-item-name').textContent = item.name;
+    document.getElementById('overlay-item-image').src = item.img;
+    document.getElementById('overlay-item-description').textContent = item.description;
+    document.getElementById('overlay-item-rarity').textContent = item.rarity;
+    document.getElementById('overlay-item-level').textContent = item.level;
+    document.getElementById('overlay-item-price').textContent = item.price;
+    
+    // Show the item overlay
+    itemOverlay.style.display = 'flex';
+
+    // Add event listener for the Buy button
+    const purchaseButton = document.getElementById('purchase-button');
+    purchaseButton.onclick = () => {
+        const quantity = parseInt(itemQuantityInput.value);
+        console.log(`Item purchased: ${item.name}`);
+        console.log(`Quantity: ${quantity}`);
+        console.log(`Price: ${item.price}`);
+        // You can also add more data if needed
+    };
+}
+
+
+    // Close the overlay when the close button is clicked
+    closeOverlayButton.addEventListener('click', () => {
+        itemOverlay.style.display = 'none';
+    });
+
+    // Quantity control functions
+    document.getElementById('decrease-quantity').addEventListener('click', () => {
+        let currentQuantity = parseInt(itemQuantityInput.value);
+        if (currentQuantity > 1) {
+            itemQuantityInput.value = currentQuantity - 1;
+        }
+    });
+
+    document.getElementById('increase-quantity').addEventListener('click', () => {
+        let currentQuantity = parseInt(itemQuantityInput.value);
+        itemQuantityInput.value = currentQuantity + 1;
+    });
+
     // Initial render
     renderItems('All', document.querySelector('.filter-button.active'));
 
     // Expose the filterItems function to the global scope
     window.filterItems = renderItems;
 });
-
-// Function to handle item purchase
-function purchaseItem(itemId) {
-    // Add logic to handle item purchase
-    alert(`Purchased item with ID: ${itemId}`);
-}
