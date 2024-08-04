@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); */
 
 /* Global Styles */
 * {
@@ -12,7 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #666;
+  background-color: #555;
 
   
 }
@@ -121,7 +121,7 @@ body {
   justify-content: space-around;
   padding: 10px 0;
   font-size: 12px;
-  background-color: #222;
+  background-color: #1e1e1e;
       /* border-top: 1px solid #fff; */
   color: #fff;
 }

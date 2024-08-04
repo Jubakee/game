@@ -1,10 +1,5 @@
-// Initialize the Telegram WebApp
-window.Telegram.WebApp.ready();
-window.Telegram.WebApp.expand();
-window.Telegram.WebApp.disableVerticalSwipes();
-
-// Player data object with default values
-const playerData = {
+// Constants
+const INITIAL_PLAYER_DATA = {
     playerId: null,
     playerBalance: 0,
     playerPerClick: 1,
@@ -15,28 +10,28 @@ const playerData = {
     playerLvlEXP: 0,
     lastEnergyUpdate: Date.now(),
     playerLastLvlUpdate: Date.now(),
-    inventory: Array(20).fill(null), // 20 slots initialized to null
+    inventory: Array(20).fill(null),
     playerEquipped: { head: null, top: null, bottom: null, hand: null, feet: null },
-    playerMaterials: Array(6).fill(null) // 6 slots initialized to null
+    playerMaterials: Array(6).fill(null)
 };
+
+const LEVEL_SCALING_FACTORS = {
+    a: 20, // Increased scaling factor
+    b: 2,  // Increased growth rate
+    c: 10   // Minimum requirement
+};
+
+// Initialize the Telegram WebApp
+window.Telegram.WebApp.ready();
+window.Telegram.WebApp.expand();
+window.Telegram.WebApp.disableVerticalSwipes();
+
+// Player data object with default values
+const playerData = { ...INITIAL_PLAYER_DATA };
 
 // Initialize player data to default values
 function initializePlayerData() {
-    Object.assign(playerData, {
-        playerId: null,
-        playerBalance: 0,
-        playerPerClick: 1,
-        playerIncome: 1,
-        playerEnergy: 1000,
-        playerLastSaved: Date.now(),
-        playerLevel: 1,
-        playerLvlEXP: 0,
-        lastEnergyUpdate: Date.now(),
-        playerLastLvlUpdate: Date.now(),
-        inventory: Array(20).fill(null),
-        playerEquipped: { head: null, top: null, bottom: null, hand: null, feet: null },
-        playerMaterials: Array(6).fill(null)
-    });
+    Object.assign(playerData, { ...INITIAL_PLAYER_DATA, playerLastSaved: Date.now() });
 }
 
 // Reset the game by clearing saved data and reloading
@@ -47,10 +42,11 @@ function resetGame() {
 
 // Retrieve user information from Telegram
 function getUserInfo() {
-    const initData = window.Telegram.WebApp.initDataUnsafe;
-    return (initData && initData.user) 
-        ? { firstName: initData.user.firstName || 'Unknown', lastName: initData.user.lastName || 'Unknown' }
-        : { firstName: 'Unknown', lastName: 'Unknown' };
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+    return {
+        firstName: user?.firstName || 'Unknown',
+        lastName: user?.lastName || 'Unknown'
+    };
 }
 
 // Set user information in the UI
@@ -92,10 +88,10 @@ function updateBalance() {
 
 // Function to update the level bar
 function updateLevelBar() {
-    const levelExpFill = document.getElementById('level-exp-fill');
-    const maxCoinsForNextLevel = calculateMaxCoinsForNextLevel(playerData.playerLevel); // Get max coins for next level
-    const widthPercentage = Math.min((playerData.playerLvlEXP / maxCoinsForNextLevel) * 100, 100); // Calculate width
-    levelExpFill.style.width = `${widthPercentage}%`; // Update width of the level fill
+    const levelExperienceFill = document.getElementById('level-exp-fill');
+    const maxCoinsForNextLevel = calculateMaxCoinsForNextLevel(playerData.playerLevel);
+    const widthPercentage = Math.min((playerData.playerLvlEXP / maxCoinsForNextLevel) * 100, 100);
+    levelExperienceFill.style.width = `${widthPercentage}%`;
 }
 
 // Level up the player based on experience
@@ -104,23 +100,21 @@ function levelUp() {
     while (playerData.playerLvlEXP >= maxCoinsForNextLevel) {
         playerData.playerLevel++;
         playerData.playerLvlEXP -= maxCoinsForNextLevel;
-        playerData.playerIncome++; // Increase income upon leveling up
+        playerData.playerIncome++;
         maxCoinsForNextLevel = calculateMaxCoinsForNextLevel(playerData.playerLevel);
-        updateGameUI(); // Update UI for each level-up
-        savePlayerData(); // Save data after leveling up
+        updateGameUI();
+        savePlayerData();
     }
 }
 
 // Calculate the required experience for the next level
 function calculateMaxCoinsForNextLevel(level) {
-    const a = 20; // Increased scaling factor
-    const b = 2; // Increased growth rate
-    const c = 10; // Minimum requirement remains the same
-    return Math.floor(a * Math.pow(level, b)) + c; // Calculate required coins for next level
+    const { a, b, c } = LEVEL_SCALING_FACTORS;
+    return Math.floor(a * Math.pow(level, b)) + c;
 }
 
 // Initialization
-//resetGame();
+// resetGame();
 setUserInfo();
 loadPlayerData();
 setInterval(updateBalance, 1000);

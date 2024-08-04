@@ -17,14 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
         itemElement.innerHTML = `
         <div class="item-header">
             <div class="item-name">${item.name}</div>
+        </div>
+        <img src="${item.img}" alt="${item.name}">
+        <div class="item-info">
+            <div class="item-description">${item.description}</div>
+            <div class="item-price">
+                <img id="coin-icon" src="assets/currency.png" alt="Coins Icon" />
+                <span class="price-value">${item.price}</span>
             </div>
-            <img src="${item.img}" alt="${item.name}">
-            <div class="item-info">
-                    <div class="item-description">${item.description}</div>
-                <div class="item-price">${item.price}</div>
-            </div>
-        `;
-
+        </div>
+    `;
+    
+    
+    
         shopContainer.appendChild(itemElement);
     });
 });
@@ -34,3 +39,9 @@ function purchaseItem(itemId) {
     // Add logic to handle item purchase
     alert(`Purchased item with ID: ${itemId}`);
 }
+
+
+// <div id="coins-container">
+// <img id="coins-icon" src="assets/currency.png" alt="Coins Icon" />
+// <span id="coins" class="coins-value">0</span>
+// </div>
