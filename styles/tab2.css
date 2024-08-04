@@ -181,8 +181,8 @@ h2 {
 }
 
 .price-icon {
-    width: 24px; /* Adjust width as needed */
-    height: 24px; /* Adjust height as needed */
+    max-width: 24px; /* Adjust width as needed */
+    max-height: 24px; /* Adjust height as needed */
     margin-right: 5px; /* Space between icon and price */
     vertical-align: middle; /* Center align the icon */
 }
