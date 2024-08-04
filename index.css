@@ -41,7 +41,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 10px; /* Adjust padding */
+  padding: 10px; /* Adjust padding */
 }
 
 #level-container, #coins-container {

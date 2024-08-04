@@ -1,7 +1,28 @@
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* margin-bottom: 5px; */
+}
+
+.filter-button {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.2s;
+    font-size: 11px;
+}
+.filter-container .active {
+    background-color: #1e1e1e; /* Highlight color */
+}
+
 .shop-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 items in each row */
-    gap: 15px;
+    gap: 10px;
     padding: 10px;
 }
 
@@ -54,17 +75,15 @@
     text-align: center;
 }
 
-
-
-
 .item-price {
-    width: 100%; /* Full width */
+    width: 100%;
     display: flex;
     justify-content: center; /* Center contents horizontally */
     align-items: center; /* Center contents vertically */
-    font-size: 11px;
+    font-size: 12px;
     background: rgba(0, 0, 0, 0.1);
-    font-weight: bold;
+    padding-right: 20px;
+    /* font-weight: bold; */
 }
 
 .item-price-content {
@@ -73,9 +92,8 @@
 }
 
 #coin-icon {
-    width: 32px;
-    height: 32px;
-    margin-left: -20px;
+    width: 24px;
+    height: 24px;
     margin-right: -5px;
 }
 

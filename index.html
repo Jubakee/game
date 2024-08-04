@@ -53,8 +53,17 @@
       </section>
 
       <section id="tab2" class="tab-content">
-        <div class="shop-container" id="shop-container">
-        </div>
+        <div class="filter-container">
+          <button class="filter-button active" onclick="filterItems('All', this)">ALL</button>
+          <button class="filter-button" onclick="filterItems('Chest', this)">CHESTS</button>
+          <button class="filter-button" onclick="filterItems('Potion', this)">POTIONS</button>
+      </div>
+  
+      <div id="shop-container" class="shop-container"></div>
+
+    <div id="shop-container" class="shop-container"></div>
+  
+      <div id="shop-container" class="shop-container"></div>
       </section>
 
       <section id="tab3" class="tab-content">
@@ -90,7 +99,7 @@
       </div>
       <div class="footer-item" data-tab="tab5">
         <img src="assets/currency.png"alt="Quests" class="footer-icon">
-          <span class="footer-text">REWARDS</span>
+          <span class="footer-text">TASKS</span>
       </div>
   </div>
   
