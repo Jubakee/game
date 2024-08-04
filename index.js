@@ -36,7 +36,7 @@ function initializePlayerData() {
 
 // Reset the game by clearing saved data and reloading
 function resetGame() {
-    localStorage.removeItem('playerData');
+    localStorage.removeItem('avatar_db_0');
     location.reload();
 }
 
@@ -61,12 +61,12 @@ function setUserInfo() {
 // Save player data to local storage
 function savePlayerData() {
     playerData.playerLastSaved = Date.now();
-    localStorage.setItem('playerData', JSON.stringify(playerData));
+    localStorage.setItem('avatar_db_0', JSON.stringify(playerData));
 }
 
 // Load player data from local storage or initialize it if not found
 function loadPlayerData() {
-    const savedData = localStorage.getItem('myData');
+    const savedData = localStorage.getItem('avatar_db_0');
     savedData ? Object.assign(playerData, JSON.parse(savedData)) : initializePlayerData();
 }
 

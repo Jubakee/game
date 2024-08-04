@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemOverlay = document.getElementById('item-overlay');
     const closeOverlayButton = document.getElementById('close-overlay');
     const itemQuantityInput = document.getElementById('item-quantity');
-    const playerData = { playerLevel: 20, playerBalance: 30000 }; // Sample player data
+    // const playerData = { playerLevel: 20, playerBalance: 30000 }; // Sample player data
 
     // Ensure the overlay is hidden on load
     itemOverlay.style.display = 'none';
