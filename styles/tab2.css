@@ -132,7 +132,7 @@ h2 {
     font-size: 14px; /* Larger title */
     font-weight: bold;
     color: #fff; /* White color for emphasis */
-    padding: 30px;
+    padding: 25px;
     background-color: #1e1e1e; /* Dark background */
     border-radius: 10px 10px 0 0; /* Only top corners rounded */
 }
@@ -202,17 +202,17 @@ h2 {
     border-radius: 10px; /* Smaller radius for buttons */
     padding: 10px; /* Padding for larger click area */
     cursor: pointer;
-    font-size: 18px; /* Increased font size */
+    text-align: center; /* Center text in input */
     height: 40px; /* Fixed height for buttons */
     width: 40px; /* Fixed width for consistency */
 }
 
 .quantity-input {
-    height: 40px; /* Set the same height as buttons */
+    height: 35px; /* Set the same height as buttons */
     width: 50px; /* Width for the input box */
     margin: 0 10px; /* Space on the sides */
     text-align: center; /* Center text in input */
-    font-size: 16px; /* Increased font size */
+    font-size: 14px; /* Increased font size */
     padding: 5px; /* Added padding */
     border: none;
     border-radius: 10px; /* Rounded corners */
@@ -237,11 +237,11 @@ h2 {
 
 .close-button {
     position: absolute;
-    top: 7px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     background: transparent;
     border: none;
-    font-size: 14px;
+    font-size: 12px;
     color: #fff; /* White color for close button */
     cursor: pointer;
 }
