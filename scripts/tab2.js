@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemQuantityInput = document.getElementById('item-quantity');
 
     // Ensure the overlay is hidden on load
-    itemOverlay.style.display = 'none';
+    // itemOverlay.style.display = 'none';
 
     // Predefined items for the shop
     const items = [
@@ -76,22 +76,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Close the overlay when the close button is clicked
-    closeOverlayButton.addEventListener('click', () => {
-        itemOverlay.style.display = 'none';
-    });
+    // closeOverlayButton.addEventListener('click', () => {
+    //     itemOverlay.style.display = 'none';
+    // });
 
     // Quantity control functions
-    document.getElementById('decrease-quantity').addEventListener('click', () => {
-        let currentQuantity = parseInt(itemQuantityInput.value);
-        if (currentQuantity > 1) {
-            itemQuantityInput.value = currentQuantity - 1;
-        }
-    });
+    // document.getElementById('decrease-quantity').addEventListener('click', () => {
+    //     let currentQuantity = parseInt(itemQuantityInput.value);
+    //     if (currentQuantity > 1) {
+    //         itemQuantityInput.value = currentQuantity - 1;
+    //     }
+    // });
 
-    document.getElementById('increase-quantity').addEventListener('click', () => {
-        let currentQuantity = parseInt(itemQuantityInput.value);
-        itemQuantityInput.value = currentQuantity + 1;
-    });
+    // document.getElementById('increase-quantity').addEventListener('click', () => {
+    //     let currentQuantity = parseInt(itemQuantityInput.value);
+    //     itemQuantityInput.value = currentQuantity + 1;
+    // });
 
     // Initial render
     renderItems('All', document.querySelector('.filter-button.active'));
