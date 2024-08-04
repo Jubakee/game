@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeOverlayButton = document.getElementById('close-overlay');
     const itemQuantityInput = document.getElementById('item-quantity');
 
+    // Ensure the overlay is hidden on load
+    itemOverlay.style.display = 'none';
+
     // Predefined items for the shop
     const items = [
         { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: '1,000', img: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'COMMON', level: '10', isOpen: false },
@@ -50,29 +53,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-// After your function to show the item overlay
-function showItemOverlay(item) {
-    document.getElementById('overlay-item-name').textContent = item.name;
-    document.getElementById('overlay-item-image').src = item.img;
-    document.getElementById('overlay-item-description').textContent = item.description;
-    document.getElementById('overlay-item-rarity').textContent = item.rarity;
-    document.getElementById('overlay-item-level').textContent = item.level;
-    document.getElementById('overlay-item-price').textContent = item.price;
-    
-    // Show the item overlay
-    itemOverlay.style.display = 'flex';
+    // Function to show the item overlay
+    function showItemOverlay(item) {
+        document.getElementById('overlay-item-name').textContent = item.name;
+        document.getElementById('overlay-item-image').src = item.img;
+        document.getElementById('overlay-item-description').textContent = item.description;
+        document.getElementById('overlay-item-rarity').textContent = item.rarity;
+        document.getElementById('overlay-item-level').textContent = item.level;
+        document.getElementById('overlay-item-price').textContent = item.price;
 
-    // Add event listener for the Buy button
-    const purchaseButton = document.getElementById('purchase-button');
-    purchaseButton.onclick = () => {
-        const quantity = parseInt(itemQuantityInput.value);
-        console.log(`Item purchased: ${item.name}`);
-        console.log(`Quantity: ${quantity}`);
-        console.log(`Price: ${item.price}`);
-        // You can also add more data if needed
-    };
-}
+        // Show the item overlay
+        itemOverlay.style.display = 'flex';
 
+        // Add event listener for the Buy button
+        const purchaseButton = document.getElementById('purchase-button');
+        purchaseButton.onclick = () => {
+            const quantity = parseInt(itemQuantityInput.value);
+            console.log(`Item purchased: ${item.name}`);
+            console.log(`Quantity: ${quantity}`);
+            console.log(`Price: ${item.price}`);
+        };
+    }
 
     // Close the overlay when the close button is clicked
     closeOverlayButton.addEventListener('click', () => {
