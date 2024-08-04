@@ -66,7 +66,7 @@ function savePlayerData() {
 
 // Load player data from local storage or initialize it if not found
 function loadPlayerData() {
-    const savedData = localStorage.getItem('playerData');
+    const savedData = localStorage.getItem('myData');
     savedData ? Object.assign(playerData, JSON.parse(savedData)) : initializePlayerData();
 }
 
@@ -114,7 +114,7 @@ function calculateMaxCoinsForNextLevel(level) {
 }
 
 // Initialization
-resetGame();
+//resetGame();
 setUserInfo();
 loadPlayerData();
 setInterval(updateBalance, 1000);

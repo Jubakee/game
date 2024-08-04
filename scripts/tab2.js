@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check player level against required level
         const requiredLevel = parseInt(item.level);
         const playerLevelElement = document.getElementById('overlay-item-level');
+        console.log(playerData.playerLevel)
         
         if (playerData.playerLevel < requiredLevel) {
             playerLevelElement.style.color = 'red'; // Set to red if player level is not high enough
