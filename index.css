@@ -7,6 +7,15 @@
   
 }
 
+/* Other existing styles */
+
+:focus {
+  outline: none !important;
+}
+
+/* Additional styles */
+
+
 body {
   font-family: Arial, sans-serif;
   display: flex;
