@@ -1,163 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
-  <!-- Add Google Fonts link for Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="styles/tab2.css">
-  <title>Telegram Web App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Telegram Web App</title>
 
-  <style>
-    /* Apply the font to the whole document */
-    body {
-      font-family: 'Montserrat', sans-serif; /* Set the font family */
-      
-    }
-  </style>
+    <!-- Add Google Fonts link for Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="styles/tab2.css">
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <style>
+        /* Apply the font to the whole document */
+        body {
+            font-family: 'Montserrat', sans-serif; /* Set the font family */
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+    <div class="container">
 
-<div class="header-container">
-  <header id="header" class="header">
-    <div id="level-container">
-      <img id="level-icon" src="assets/currency.png" alt="Level Icon" />
-      <span id="level-value">Lvl. 1</span>
-        <div id="level-exp-bar">
-          <div id="level-exp-fill"></div>
-      </div>
-    </div>
+        <div class="header-container">
+            <header id="header" class="header">
+                <div id="level-container">
+                    <img id="level-icon" src="assets/currency.png" alt="Level Icon" />
+                    <span id="level-value">Lvl. 1</span>
+                    <div id="level-exp-bar">
+                        <div id="level-exp-fill"></div>
+                    </div>
+                </div>
 
-
-    <div id="coins-container">
-      <img id="coins-icon" src="assets/currency.png" alt="Coins Icon" />
-      <span id="coins" class="coins-value">0</span>
-    </div>
-  </header>
-
-
-</div>
-
-
-    
-    
-    <main class="main-content">
-
-      <section id="tab1" class="tab-content">
-        <h2>Tab 1</h2>
-      </section>
-
-      <section id="tab2" class="tab-content">
-        <div class="filter-container">
-          <button class="filter-button active" onclick="filterItems('All', this)">ALL</button>
-          <button class="filter-button" onclick="filterItems('Chest', this)">CHESTS</button>
-          <button class="filter-button" onclick="filterItems('Potion', this)">POTIONS</button>
-      </div>
-  
-      <div id="shop-container" class="shop-container"></div>
-
-    <div id="shop-container" class="shop-container"></div>
-  
-      <div id="shop-container" class="shop-container"></div>
-      </section>
-
-      <section id="tab3" class="tab-content">
-        <h2>Tab 3</h2>
-      </section>
-
-      <section id="tab4" class="tab-content">
-        <h2>Inventory</h2>
-        <div class="inventory-container" id="inventory-container">
-            <!-- Inventory items will be dynamically populated here -->
+                <div id="coins-container">
+                    <img id="coins-icon" src="assets/currency.png" alt="Coins Icon" />
+                    <span id="coins" class="coins-value">0</span>
+                </div>
+            </header>
         </div>
-    </section>
-    
 
-      <section id="tab5" class="tab-content">
-        <h2>Tab 5</h2>
-      </section>
+        <main class="main-content">
+            <section id="tab1" class="tab-content">
+                <h2>Tab 1</h2>
+            </section>
 
-    </main>
+            <section id="tab2" class="tab-content">
+                <div class="filter-container">
+                    <button class="filter-button active" onclick="filterItems('All', this)">ALL</button>
+                    <button class="filter-button" onclick="filterItems('Chest', this)">CHESTS</button>
+                    <button class="filter-button" onclick="filterItems('Potion', this)">POTIONS</button>
+                </div>
+                <div id="shop-container" class="shop-container"></div>
+            </section>
+
+            <section id="tab3" class="tab-content">
+                <h2>Tab 3</h2>
+            </section>
+
+            <section id="tab4" class="tab-content">
+                <h2>Inventory</h2>
+                <div class="inventory-container" id="inventory-container">
+                    <!-- Inventory items will be dynamically populated here -->
+                </div>
+            </section>
+
+            <section id="tab5" class="tab-content">
+                <h2>Tab 5</h2>
+            </section>
+        </main>
+
+        <div class="footer">
+            <div class="footer-item" data-tab="tab1">
+                <img src="assets/currency.png" alt="Earn" class="footer-icon">
+                <span class="footer-text">EARN</span>
+            </div>
+            <div class="footer-item" data-tab="tab2">
+                <img src="assets/currency.png" alt="Shop" class="footer-icon">
+                <span class="footer-text">SHOP</span>
+            </div>
+            <div class="footer-item" data-tab="tab3">
+                <img src="assets/currency.png" alt="Character" class="footer-icon">
+                <span class="footer-text">AVATAR</span>
+            </div>
+            <div class="footer-item" data-tab="tab4">
+                <img src="assets/currency.png" alt="Bag" class="footer-icon">
+                <span class="footer-text">BAG</span>
+            </div>
+            <div class="footer-item" data-tab="tab5">
+                <img src="assets/currency.png" alt="Quests" class="footer-icon">
+                <span class="footer-text">TASKS</span>
+            </div>
+        </div>
+    </div>
+
     
-    <div class="footer">
-      <div class="footer-item" data-tab="tab1">
-          <img src="assets/currency.png" alt="Earn" class="footer-icon">
-          <span class="footer-text">EARN</span>
-      </div>
-      <div class="footer-item" data-tab="tab2">
-        <img src="assets/currency.png" alt="Shop" class="footer-icon">
-          <span class="footer-text">SHOP</span>
-      </div>
-      <div class="footer-item" data-tab="tab3">
-        <img src="assets/currency.png"alt="Character" class="footer-icon">
-          <span class="footer-text">AVATAR</span>
-      </div>
-      <div class="footer-item" data-tab="tab4">
-        <img src="assets/currency.png"alt="Bag" class="footer-icon">
-          <span class="footer-text">BAG</span>
-      </div>
-      <div class="footer-item" data-tab="tab5">
-        <img src="assets/currency.png"alt="Quests" class="footer-icon">
-          <span class="footer-text">TASKS</span>
+    <div id="item-overlay" class="item-overlay">
+      <div class="overlay-content">
+          <h2 id="overlay-item-name"></h2>
+          <img id="overlay-item-image" alt="Item Image" />
+          <p id="overlay-item-description"></p>
+          
+          <div class="overlay-details">
+              <div class="detail-item">
+                  <strong>RARITY</strong> <span id="overlay-item-rarity" class="detail-value"></span>
+              </div>
+              <div class="detail-item">
+                  <strong>LEVEL</strong> <span id="overlay-item-level" class="detail-value"></span>
+              </div>
+              <div class="detail-item">
+                  <strong>PRICE</strong>
+                  <span class="detail-value">
+                      <img src="assets/currency.png" alt="Currency Icon" class="price-icon"> 
+                      <span id="overlay-item-price"></span>
+                  </span>
+              </div>
+          </div>
+          
+          <div class="quantity-container">
+              <button class="quantity-button" id="decrease-quantity">-</button>
+              <input type="number" id="item-quantity" value="1" min="1" class="quantity-input" />
+              <button class="quantity-button" id="increase-quantity">+</button>
+          </div>
+
+          <button id="purchase-button" class="purchase-button">BUY</button>
       </div>
   </div>
-  
-  <div id="item-overlay" class="item-overlay">
-    <div class="overlay-content">
-        <button id="close-overlay" class="close-button">&times;</button>
-        <h2 id="overlay-item-name"></h2>
-        <img id="overlay-item-image" alt="Item Image" />
-        <p id="overlay-item-description"></p>
-        
-        <div class="overlay-details">
-          <div class="detail-item">
-              <strong>RARITY</strong> <span id="overlay-item-rarity" class="detail-value"></span>
-          </div>
-          <div class="detail-item">
-              <strong>LEVEL</strong> <span id="overlay-item-level" class="detail-value"></span>
-          </div>
-          <div class="detail-item">
-              <strong>PRICE</strong> 
-              <span class="detail-value">
-                  <img src="assets/currency.png" alt="Currency Icon" class="price-icon"> 
-                  <span id="overlay-item-price"></span>
-              </span>
+
+  <div id="confirmation-modal" class="modal">
+      <div class="modal-content">
+          <p id="confirmation-message"></p>
+          <div class="modal-actions">
+              <button id="confirm-purchase" class="confirm-button">YES</button>
+              <button id="cancel-purchase" class="cancel-button">CANCEL</button>
           </div>
       </div>
-      
-      
-      <div class="quantity-container">
-        <button class="quantity-button" id="decrease-quantity">-</button>
-        <input type="number" id="item-quantity" value="1" min="1" class="quantity-input" />
-        <button class="quantity-button" id="increase-quantity">+</button>
-    </div>
-  
-        <button id="purchase-button" class="purchase-button">BUY</button>
+  </div>
+
+  <div id="accumulated-coins-modal" class="modal">
+    <div class="modal-content">
+        <div id="accumulated-coins-message"></div>
     </div>
 </div>
 
-<div id="confirmation-modal" class="modal">
-  <div class="modal-content">
-      <span id="close-modal" class="close">&times;</span>
-      <p id="confirmation-message"></p>
-      <div class="modal-actions">
-          <button id="confirm-purchase" class="confirm-button">YES</button>
-          <button id="cancel-purchase" class="cancel-button">CANCEL</button>
-      </div>
-  </div>
-</div>
-
-
-
-
-  <script src="index.js"></script>
-  <script src="scripts/tabs.js"></script>
-  <script src="items/items.js"></script>
-  <script src="scripts/tab2.js"></script>
+    <script src="index.js"></script>
+    <script src="scripts/tabs.js"></script>
+    <script src="items/items.js"></script>
+    <script src="scripts/tab2.js"></script>
 </body>
 </html>

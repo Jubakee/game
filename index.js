@@ -68,6 +68,15 @@ function savePlayerData() {
 function loadPlayerData() {
     const savedData = localStorage.getItem('playerData');
     savedData ? Object.assign(playerData, JSON.parse(savedData)) : initializePlayerData();
+
+    const lastUpdateTime = playerData.playerLastSaved; // Use the last saved time directly
+    const now = Date.now();
+    const elapsedTime = now - lastUpdateTime;
+    const elapsedTimeInSeconds = Math.floor(elapsedTime / 1000); // Convert to seconds
+    const earnedCoins = playerData.playerIncome * elapsedTimeInSeconds;
+
+    showAccumulatedCoinsPopup(earnedCoins)
+
 }
 
 // Update the game UI with current player data
@@ -113,8 +122,47 @@ function calculateMaxCoinsForNextLevel(level) {
     return Math.floor(a * Math.pow(level, b)) + c;
 }
 
+// Function to display a modal with accumulated coins
+function showAccumulatedCoinsPopup(earnedCoins) {
+    const modal = document.getElementById('accumulated-coins-modal');
+    const messageContainer = document.getElementById('accumulated-coins-message');
+    
+    // Clear previous content
+    messageContainer.innerHTML = '';
+
+    // Create the image element
+    const coinImage = document.createElement('img');
+    coinImage.src = 'assets/currency.png'; // Replace with the actual path to your coin image
+    coinImage.alt = 'Coin Icon';
+    coinImage.style.width = '32px'; // Set width
+    coinImage.style.height = '32px'; // Set height
+    coinImage.style.verticalAlign = 'middle'; // Align vertically with text
+    coinImage.style.marginRight = '3px'; // Space between the image and text
+    coinImage.display = 'inline-flex';
+    coinImage.style.alignItems = 'center';
+
+
+    // Create a text node for the message
+    const messageText = document.createTextNode(`YOU EARNED `);
+    
+    // Append the image and text to the message container
+    messageContainer.appendChild(messageText);
+    messageContainer.appendChild(coinImage);
+    messageContainer.appendChild(document.createTextNode(`${earnedCoins.toLocaleString()} WHILE YOU WERE AWAY!`));
+
+    // Show the modal
+    modal.style.display = 'block';
+
+    // Remove the modal after 20 seconds
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 2000);
+}
+
+
+
 // Initialization
-//resetGame();
+// resetGame(); // Uncomment to reset the game
 setUserInfo();
 loadPlayerData();
 setInterval(updateBalance, 1000);

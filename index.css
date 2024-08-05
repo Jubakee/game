@@ -2,25 +2,13 @@
 * {
   margin: 0;
   padding: 0;
-  
+  -webkit-tap-highlight-color: transparent; /* Apply tap highlight color */
 }
 
-/* Apply to all elements */
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Or apply to specific elements, for example buttons */
 button {
-  -webkit-tap-highlight-color: transparent;
+  outline: none !important; /* Remove outline on focus */
+  -webkit-tap-highlight-color: transparent; /* Apply tap highlight color */
 }
-
-/* You can combine with :focus to remove the outline as well */
-button:focus {
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent;
-}
-
 
 body {
   font-family: Arial, sans-serif;
@@ -28,8 +16,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-color: #666;
-
-  
 }
 
 /* Main Container */
@@ -37,7 +23,6 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
-
 }
 
 /* Header Styles */
@@ -49,7 +34,6 @@ body {
   background-color: #1e1e1e; /* Dark background */
   color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
-  font-family: Arial, sans-serif; /* Change to a clean, modern font */
 }
 
 .header {
@@ -59,7 +43,8 @@ body {
   padding: 10px; /* Adjust padding */
 }
 
-#level-container, #coins-container {
+#level-container,
+#coins-container {
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.8); /* Darker background */
@@ -67,23 +52,19 @@ body {
   border-radius: 10px;
 }
 
-#level-icon, #coins-icon {
+#level-icon,
+#coins-icon {
   width: 32px; /* Set a fixed width for the images */
   height: 32px; /* Set a fixed height for the images */
   margin-right: 2px; /* Add space between icon and text */
-
 }
 
-#level-value, .coins-value {
+#level-value,
+.coins-value {
   font-size: 11px; /* Increase font size */
   color: #fff; /* Gold color for better visibility */
   margin-right: 10px; /* Add space between icon and text */
-
 }
-
-
-
-
 
 #level-exp-bar {
   width: 100px; /* Set a specific width for the bar */
@@ -92,8 +73,6 @@ body {
   border-radius: 10px;
   margin-right: 10px;
   overflow: hidden;
-  /* box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5); Inner shadow for depth */
-  /* border: 2px solid #fff; Gold border */
 }
 
 #level-exp-fill {
@@ -103,7 +82,6 @@ body {
   transition: width 0.3s ease; /* Smooth transition for width changes */
   box-shadow: 0 0 5px rgba(0, 255, 0, 0.8), 0 0 10px rgba(0, 255, 0, 0.6); /* Glowing effect */
 }
-
 
 /* Main Content */
 .main-content {
@@ -124,7 +102,6 @@ body {
   width: 100%; /* Full width */
   margin: 0 auto; /* Center it within the width */
   text-align: center;
-  
 }
 
 /* Footer Styles */
@@ -137,7 +114,6 @@ body {
   padding: 10px 0;
   font-size: 12px;
   background-color: #222;
-      /* border-top: 1px solid #fff; */
   color: #fff;
 }
 
@@ -149,11 +125,6 @@ body {
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center align items */
   padding: 10px;
-  /* border-right: 1px solid #fff; */
-}
-
-.footer-item:last-child {
-  /* border-right: none; Remove border-right for the last item */
 }
 
 .footer-icon {
@@ -164,14 +135,11 @@ body {
 }
 
 .footer-icon.active {
-
   transform: scale(1.5); /* Increase the size */
   transition: transform 0.3s ease; /* Smooth transition */
-
 }
 
-.footer-item.active{
-
+.footer-item.active {
   background: rgba(0, 0, 0, 0.4); /* Darker background */
   border-radius: 10px;
 }
@@ -182,3 +150,11 @@ body {
   margin-top: 10px; /* Margin from the icon */
 }
 
+#accumulated-coins-message {
+  font-size: 16px; /* Adjust the font size */
+  font-weight: bold; /* Make the text bold */
+  margin: 10px 0; /* Add some margin above and below the message */
+  text-align: center; /* Center the text */
+  color: #fff; /* Set a color for the text */
+  padding: 30px;
+}
