@@ -3,21 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemOverlay = document.getElementById('item-overlay');
     const closeOverlayButton = document.getElementById('close-overlay');
     const itemQuantityInput = document.getElementById('item-quantity');
-    // const playerData = { playerLevel: 20, playerBalance: 30000 }; // Sample player data
-
-    // Ensure the overlay is hidden on load
-    itemOverlay.style.display = 'none';
-
-    // Confirmation modal variables
     const confirmationModal = document.getElementById('confirmation-modal');
     const closeModalButton = document.getElementById('close-modal');
     const confirmPurchaseButton = document.getElementById('confirm-purchase');
     const cancelPurchaseButton = document.getElementById('cancel-purchase');
     const confirmationMessage = document.getElementById('confirmation-message');
-    let currentItem; // To store the item currently being purchased
-    let totalCost; // To store the total cost of the purchase
+    let currentItem;
+    let totalCost;
 
-    // Predefined items for the shop
     const items = [
         { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: '1,000', img: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'COMMON', level: '10', isOpen: false },
         { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '5,000', img: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '25', isOpen: false },
@@ -25,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: '4', name: 'DIAMOND CHEST', type: 'Chest', price: '50,000', img: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'UNIQUE', level: '100', isOpen: false },
     ];
 
-    // Function to render shop items
     function renderItems(filter = 'All', button) {
         shopContainer.innerHTML = '';
         items
@@ -34,8 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('shop-item');
 
-                // Add click event listener to each item
-                itemElement.addEventListener('click', () => showItemOverlay(item));
+                itemElement.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent the event from bubbling up to the document
+                    showItemOverlay(item);
+                });
 
                 itemElement.innerHTML = `
                     <div class="item-header">
@@ -54,18 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 shopContainer.appendChild(itemElement);
             });
 
-        // Remove active class from all filter buttons
         document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
 
-        // Add active class to the clicked button
         if (button) {
             button.classList.add('active');
         }
     }
 
-    // Function to show the item overlay
     function showItemOverlay(item) {
-        currentItem = item; // Store the current item being viewed
+        currentItem = item;
         document.getElementById('overlay-item-name').textContent = item.name;
         document.getElementById('overlay-item-image').src = item.img;
         document.getElementById('overlay-item-description').textContent = item.description;
@@ -75,122 +66,115 @@ document.addEventListener('DOMContentLoaded', () => {
         const rarityElement = document.getElementById('overlay-item-rarity');
         rarityElement.textContent = item.rarity;
 
-        // Set color based on rarity
         switch (item.rarity) {
             case 'COMMON':
-                rarityElement.style.color = '#b0b0b0'; // Gray for Common
+                rarityElement.style.color = '#b0b0b0';
                 break;
             case 'UNCOMMON':
-                rarityElement.style.color = '#4caf50'; // Green for Uncommon
+                rarityElement.style.color = '#4caf50';
                 break;
             case 'RARE':
-                rarityElement.style.color = '#FFD700'; // Bright Gold for Rare
+                rarityElement.style.color = '#FFD700';
                 break;
             case 'UNIQUE':
-                rarityElement.style.color = '#9c27b0'; // Purple for Unique
+                rarityElement.style.color = '#9c27b0';
                 break;
             default:
-                rarityElement.style.color = '#fff'; // Default white if rarity is unknown
+                rarityElement.style.color = '#fff';
                 break;
         }
 
-        // Check player level against required level
         const requiredLevel = parseInt(item.level);
         const playerLevelElement = document.getElementById('overlay-item-level');
-        console.log(playerData.playerLevel)
-        
+
         if (playerData.playerLevel < requiredLevel) {
-            playerLevelElement.style.color = 'red'; // Set to red if player level is not high enough
+            playerLevelElement.style.color = 'red';
         } else {
-            playerLevelElement.style.color = ''; // Reset to default if level is sufficient
+            playerLevelElement.style.color = '';
         }
 
-        const requiredBalance = parseInt(item.price.replace(/,/g, '')); // Remove commas before parsing
+        const requiredBalance = parseInt(item.price.replace(/,/g, ''));
         const playerBalanceElement = document.getElementById('overlay-item-price');
-        
+
         if (playerData.playerBalance < requiredBalance) {
-            playerBalanceElement.style.color = 'red'; // Set to red if player balance is not sufficient
+            playerBalanceElement.style.color = 'red';
         } else {
-            playerBalanceElement.style.color = ''; // Reset to default if balance is sufficient
+            playerBalanceElement.style.color = '';
         }
 
-        // Show the item overlay
         itemOverlay.style.display = 'flex';
 
-        // Add event listener for the Buy button
         const purchaseButton = document.getElementById('purchase-button');
 
-        // Function to update the buy button state
         const updatePurchaseButtonState = () => {
             if (playerLevelElement.style.color === 'red' || playerBalanceElement.style.color === 'red') {
-                purchaseButton.disabled = true; // Disable the button if any text is red
-                purchaseButton.style.color = 'red'; // Change button text color to red
+                purchaseButton.disabled = true;
+                purchaseButton.style.color = 'red';
             } else {
-                purchaseButton.disabled = false; // Enable the button if conditions are met
-                purchaseButton.style.color = ''; // Reset button text color to default
+                purchaseButton.disabled = false;
+                purchaseButton.style.color = '';
             }
         };
 
-        // Initial check for button state
         updatePurchaseButtonState();
 
         purchaseButton.onclick = () => {
             const quantity = parseInt(itemQuantityInput.value);
-            totalCost = requiredBalance * quantity; // Use requiredBalance directly
+            totalCost = requiredBalance * quantity;
 
-            // Show the confirmation modal
             confirmationMessage.innerHTML = `Buy ${quantity} ${item.name}(s) for: <div class="confirm-price">
-            <img id="confirm-icon" src="assets/currency.png" alt="Confirm Icon" />
-            <span>${totalCost.toLocaleString()} ?</span>
-        </div>`;
-        
+                <img id="confirm-icon" src="assets/currency.png" alt="Confirm Icon" />
+                <span>${totalCost.toLocaleString()} ?</span>
+            </div>`;
+
             confirmationModal.style.display = 'block';
         };
 
-    //     <div class="item-price">
-    //     <img id="coin-icon" src="assets/currency.png" alt="Coins Icon" />
-    //     <span class="price-value">${item.price}</span>
-    // </div>
-
-        // Recheck button state on color change
-        playerLevelElement.style.color = playerLevelElement.style.color; // Trigger re-evaluation
-        playerBalanceElement.style.color = playerBalanceElement.style.color; // Trigger re-evaluation
+        playerLevelElement.style.color = playerLevelElement.style.color;
+        playerBalanceElement.style.color = playerBalanceElement.style.color;
         updatePurchaseButtonState();
     }
 
-    // Close the overlay when the close button is clicked
     closeOverlayButton.addEventListener('click', () => {
         itemOverlay.style.display = 'none';
-        itemQuantityInput.value = 1; // Reset quantity input to 1 when overlay is closed
+        itemQuantityInput.value = 1;
     });
 
-    // Close the confirmation modal
     closeModalButton.onclick = () => {
         confirmationModal.style.display = 'none';
     };
 
-    // Cancel purchase
     cancelPurchaseButton.onclick = () => {
         confirmationModal.style.display = 'none';
     };
 
-    // Confirm purchase
     confirmPurchaseButton.onclick = () => {
         const quantity = parseInt(itemQuantityInput.value);
-        
-        // Proceed with the purchase logic here
-        playerData.playerBalance -= totalCost; // Deduct total from player's balance
-        console.log(`Purchased ${quantity} of ${currentItem.name} for ${totalCost} coins.`);
-        itemQuantityInput.value = 1; // Reset quantity input after purchase
 
-        // Close the overlay and confirmation modal
+        playerData.playerBalance -= totalCost;
+
+        for (let i = 0; i < quantity; i++) {
+            const emptyIndex = playerData.inventory.findIndex(slot => slot === null);
+            if (emptyIndex !== -1) {
+                playerData.inventory[emptyIndex] = currentItem;
+            } else {
+                console.log('Inventory is full. Cannot add more items.');
+                break;
+            }
+        }
+
+        savePlayerData();
+        updateInventoryUI();
+        console.log(`Purchased ${quantity} of ${currentItem.name} for ${totalCost} coins.`);
+        itemQuantityInput.value = 1;
+
         itemOverlay.style.display = 'none';
         confirmationModal.style.display = 'none';
         alert(`Successfully purchased ${quantity} ${currentItem.name}(s) for ${totalCost} coins!`);
     };
 
-    // Quantity control functions
     document.addEventListener('click', (event) => {
+        // Handle quantity changes
         if (event.target.id === 'decrease-quantity') {
             let currentQuantity = parseInt(itemQuantityInput.value);
             if (currentQuantity > 1) {
@@ -200,11 +184,19 @@ document.addEventListener('DOMContentLoaded', () => {
             let currentQuantity = parseInt(itemQuantityInput.value);
             itemQuantityInput.value = currentQuantity + 1;
         }
+        
+        // Check if the click was outside the item overlay
+        if (event.target === itemOverlay) {
+            itemOverlay.style.display = 'none'; // Close the item overlay
+            itemQuantityInput.value = 1; // Reset quantity input
+        }
+
+        // Check if the click was outside the confirmation modal
+        if (event.target === confirmationModal) {
+            confirmationModal.style.display = 'none'; // Close the confirmation modal
+        }
     });
 
-    // Initial render
     renderItems('All');
-
-    // Expose the filterItems function to the global scope
     window.filterItems = renderItems;
 });
