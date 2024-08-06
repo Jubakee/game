@@ -10,7 +10,8 @@
     
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="styles/tab2.css">
-    
+    <link rel="stylesheet" href="styles/modals.css">
+    <link rel="stylesheet" href="styles/tab4.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <style>
@@ -60,11 +61,17 @@
             </section>
 
             <section id="tab4" class="tab-content">
-                <h2>Inventory</h2>
+                <div class="filter-container">
+                    <button id="inventory-filter-all" class="inventory-filter-button active" onclick="filterInventoryItems('All', this)">ALL</button>
+                    <button class="inventory-filter-button" onclick="filterInventoryItems('Chest', this)">CHESTS</button>
+                    <button class="inventory-filter-button" onclick="filterInventoryItems('Equipment', this)">EQUIPMENT</button>
+                </div>
                 <div class="inventory-container" id="inventory-container">
                     <!-- Inventory items will be dynamically populated here -->
                 </div>
             </section>
+            
+            
 
             <section id="tab5" class="tab-content">
                 <h2>Tab 5</h2>
@@ -130,18 +137,18 @@
       </div>
   </div>
 
-  <div id="confirmation-modal" class="modal">
-      <div class="modal-content">
+  <div id="confirmation-modal" class="confirm-modal">
+      <div class="confirm-modal-content">
           <p id="confirmation-message"></p>
-          <div class="modal-actions">
-              <button id="confirm-purchase" class="confirm-button">YES</button>
-              <button id="cancel-purchase" class="cancel-button">CANCEL</button>
+          <div class="confirm-modal-actions">
+              <button id="confirm-purchase" class="cmodal-confirm-button">YES</button>
+              <button id="cancel-purchase" class="cmodal-cancel-button">CANCEL</button>
           </div>
       </div>
   </div>
 
-  <div id="accumulated-coins-modal" class="modal">
-    <div class="modal-content">
+  <div id="accumulated-coins-modal" class="accumulation-modal">
+    <div class="accumulation-modal-content">
         <div id="accumulated-coins-message"></div>
     </div>
 </div>
@@ -150,5 +157,6 @@
     <script src="scripts/tabs.js"></script>
     <script src="items/items.js"></script>
     <script src="scripts/tab2.js"></script>
+    <script src="scripts/tab4.js"></script>
 </body>
 </html>

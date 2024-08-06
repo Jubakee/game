@@ -150,11 +150,4 @@ body {
   margin-top: 10px; /* Margin from the icon */
 }
 
-#accumulated-coins-message {
-  font-size: 16px; /* Adjust the font size */
-  font-weight: bold; /* Make the text bold */
-  margin: 10px 0; /* Add some margin above and below the message */
-  text-align: center; /* Center the text */
-  color: #fff; /* Set a color for the text */
-  padding: 30px;
-}
+

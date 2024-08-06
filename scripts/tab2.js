@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // If no button is passed, select the "All" button
         if (!button && filter === 'All') {
-            button = document.getElementById('filter-button active');
+            button = document.getElementById('filter-all');
         }
         
         if (button) {
@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         itemOverlay.style.display = 'none';
         confirmationModal.style.display = 'none';
         alert(`Successfully purchased ${quantity} ${currentItem.name}(s) for ${totalCost} coins!`);
+        console.log(playerData.inventory)
     };
 
     // Handle quantity changes and modal closing
