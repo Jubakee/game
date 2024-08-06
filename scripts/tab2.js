@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <img src="${item.img}" alt="${item.name}">
                     <div class="item-info">
-
                         <div class="item-price">
                             <img id="coin-icon" src="assets/currency.png" alt="Coins Icon" />
                             <span class="price-value">${item.price}</span>
@@ -52,7 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update active filter button
         document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
-        if (button) button.classList.add('active');
+        
+        // If no button is passed, select the "All" button
+        if (!button && filter === 'All') {
+            button = document.getElementById('filter-button active');
+        }
+        
+        if (button) {
+            button.classList.add('active');
+        }
     }
 
     // Show item overlay with item details
@@ -110,9 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const quantity = parseInt(itemQuantityInput.value);
             totalCost = requiredBalance * quantity;
 
-            confirmationMessage.innerHTML = `Buy ${quantity} ${item.name}(s) for: <div class="confirm-price">
+            confirmationMessage.innerHTML = `BUY ${quantity} ${item.name}(S) FOR: <div class="confirm-price">
                 <img id="confirm-icon" src="assets/currency.png" alt="Confirm Icon" />
-                <span>${totalCost.toLocaleString()} ?</span>
+                <span>${totalCost.toLocaleString()}?</span>
             </div>`;
 
             confirmationModal.style.display = 'block';

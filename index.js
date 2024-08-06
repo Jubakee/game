@@ -137,19 +137,25 @@ function showAccumulatedCoinsPopup(earnedCoins) {
     coinImage.style.width = '32px'; // Set width
     coinImage.style.height = '32px'; // Set height
     coinImage.style.verticalAlign = 'middle'; // Align vertically with text
-    coinImage.style.marginRight = '3px'; // Space between the image and text
-    coinImage.display = 'inline-flex';
+    coinImage.style.display = 'inline-flex';
     coinImage.style.alignItems = 'center';
-
-
+    
     // Create a text node for the message
     const messageText = document.createTextNode(`YOU EARNED `);
     
+    // Create a span for the message text to apply styles
+    const messageSpan = document.createElement('span');
+    messageSpan.style.fontWeight = 'normal'; // Set font weight to normal
+    messageSpan.style.fontSize = '14px';
+    messageSpan.appendChild(messageText);
+    
     // Append the image and text to the message container
-    messageContainer.appendChild(messageText);
+    messageContainer.appendChild(messageSpan);
     messageContainer.appendChild(coinImage);
     messageContainer.appendChild(document.createTextNode(`${earnedCoins.toLocaleString()} WHILE YOU WERE AWAY!`));
-
+    messageContainer.style.fontWeight = 'normal';
+    messageContainer.style.fontSize = '14px'
+    messageContainer.style.padding = '10px'
     // Show the modal
     modal.style.display = 'block';
 
@@ -158,7 +164,6 @@ function showAccumulatedCoinsPopup(earnedCoins) {
         modal.style.display = 'none';
     }, 2000);
 }
-
 
 
 // Initialization
