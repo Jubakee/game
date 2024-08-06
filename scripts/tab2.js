@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <img src="${item.img}" alt="${item.name}">
                     <div class="item-info">
-                        <div class="item-description">${item.description}</div>
+
                         <div class="item-price">
                             <img id="coin-icon" src="assets/currency.png" alt="Coins Icon" />
                             <span class="price-value">${item.price}</span>

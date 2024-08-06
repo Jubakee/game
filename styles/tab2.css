@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     gap: 10px;
+    /* margin-bottom: 5px; */
 }
 
 .filter-button {
@@ -14,7 +15,6 @@
     transition: background-color 0.2s;
     font-size: 11px;
 }
-
 .filter-container .active {
     background-color: #1e1e1e; /* Highlight color */
 }
@@ -37,6 +37,8 @@
     border-radius: 10px;
     background-color: #333;
     color: #fff;
+    /* border: 1px solid #888; */
+
 }
 
 .shop-item img {
@@ -83,6 +85,7 @@
     font-size: 12px;
     background-color: #1e1e1e; /* Dark background */
     padding: 5px;
+    /* font-weight: bold; */
 }
 
 .item-price-content {
@@ -109,7 +112,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.3);
+
     justify-content: center;
     align-items: center;
     z-index: 1001;
@@ -118,6 +122,8 @@
 
 .overlay-content {
     background-color: #333;
+    /* border: 1px solid #888; */
+
     border-radius: 10px;
     text-align: center;
     position: relative;
@@ -136,9 +142,12 @@ h2 {
 }
 
 #overlay-item-image {
-    width: 60%;
+    width: 50%;
     max-width: 224px; /* Adjusted for a better fit */
     max-height: 224px; /* Adjusted for a better fit */
+    
+    /* border-radius: 10px; /* Rounded corners */
+    /* border: 2px solid #4caf50; Green border for RPG theme */ 
 }
 
 #overlay-item-description {
@@ -146,7 +155,9 @@ h2 {
     color: #fff; /* White color for readability */
     background: rgba(0, 0, 0, 0.2); /* Darker background */
     padding: 15px;
+
 }
+
 
 .overlay-details {
     padding: 20px;
@@ -160,6 +171,7 @@ h2 {
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bottom border for separation */
     font-size: 12px;
+
 }
 
 .detail-item:last-child {
@@ -182,41 +194,40 @@ h2 {
 }
 
 .quantity-container {
-    display: flex; /* Use flexbox for alignment */
-    justify-content: center; /* Center align the controls */
-    align-items: center; /* Center align vertically */
-    padding: 20px; /* Added padding for spacing */
-    background: rgba(0, 0, 0, 0.2); /* Darker background for contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .quantity-button {
     background-color: #1e1e1e; /* Dark background */
-    color: #fff;
+    color: white;
     border: none;
-    border-radius: 10px; /* Smaller radius for buttons */
-    padding: 10px; /* Padding for larger click area */
+    padding: 5px 10px;
     cursor: pointer;
-    text-align: center; /* Center text in input */
-    height: 40px; /* Fixed height for buttons */
-    width: 40px; /* Fixed width for consistency */
-    font-size: 16px; /* Increased font size */
+    font-size: 16px;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.quantity-button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
 }
 
 .quantity-input {
-    height: 35px; /* Set the same height as buttons */
-    width: 50px; /* Width for the input box */
-    margin: 0 10px; /* Space on the sides */
-    text-align: center; /* Center text in input */
-    font-size: 14px; /* Increased font size */
-    padding: 5px; /* Added padding */
-    border: none;
-    border-radius: 10px; /* Rounded corners */
-    background: #fff; /* White background for contrast */
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
+
 
 .purchase-button {
     width: 100%;
-    padding: 25px 40px;
+    padding: 25px;
     background-color: #1e1e1e; /* Dark background */
     color: #fff;
     border: none;
@@ -227,13 +238,17 @@ h2 {
     font-weight: bold;
 }
 
+
 .close-button {
     position: absolute;
     top: 5px;
     right: 10px;
     background: transparent;
     border: none;
+
+
     color: #aaa;
+
     font-size: 28px;
     font-weight: bold;
 }
@@ -255,7 +270,7 @@ h2 {
     left: 50%; /* 50% from the left */
     transform: translate(-50%, -50%); /* Offset by half its own width and height */
     background-color: #1e1e1e;
-    padding: 10px;
+    padding: 20px;
     width: 60%; /* Could be more or less, depending on screen size */
     border-radius: 10px;
 }
@@ -266,24 +281,31 @@ h2 {
     right: 10px;
     background: transparent;
     border: none;
+
+
     color: #aaa;
+
     font-size: 28px;
     font-weight: bold;
 }
 
+
 .modal-actions {
     display: flex;
     justify-content: center; /* Center the buttons */
+    padding: 10px;
 }
 
+
 .confirm-button, .cancel-button {
-    padding: 15px 30px;
+    padding: 20px 40px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin: 0 5px; /* Add horizontal margin for spacing */
+    margin: 0 10px; /* Add horizontal margin for spacing */
     font-size: 12px;
 }
+
 
 .confirm-button {
     background: rgba(0, 0, 0, 0.8); /* Darker background */
@@ -303,16 +325,19 @@ h2 {
     background-color: #d32f2f;
 }
 
+
 .confirm-price {
     display: inline-flex; /* Use inline-flex to keep icon and text aligned */
     align-items: center; /* Center items vertically */
     vertical-align: middle; /* Center align the icon */
+
 }
 
 #confirm-icon {
     width: 24px; /* Set a width for the icon */
     height: 24px; /* Set a height for the icon */
     margin-right: 5px; /* Space between the icon and text */
+
 }
 
 #confirmation-message {
