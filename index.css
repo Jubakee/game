@@ -49,7 +49,7 @@ body {
   align-items: center;
   background: rgba(0, 0, 0, 0.8); /* Darker background */
   padding: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 #level-icon,
@@ -70,7 +70,7 @@ body {
   width: 100px; /* Set a specific width for the bar */
   height: 10px; /* Decrease height */
   background-color: #333; /* Dark background for the bar */
-  border-radius: 10px;
+  border-radius: 5px;
   margin-right: 10px;
   overflow: hidden;
 }
@@ -141,7 +141,7 @@ body {
 
 .footer-item.active {
   background: rgba(0, 0, 0, 0.4); /* Darker background */
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .footer-text {
