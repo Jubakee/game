@@ -109,3 +109,124 @@
     padding: 10px;
   }
   
+
+  .inventory-item-modal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%; /* Adjusted to fill the screen */
+    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+    padding-bottom: 2000px;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    backdrop-filter: blur(1px); /* Add blur effect */
+}
+
+.modal-content {
+    background-color: #333;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    width: 80%; /* Adjust width */
+    max-width: 600px; /* Slightly wider */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8); /* Shadow for depth */
+}
+
+h2 {
+    font-size: 14px; /* Larger title */
+    font-weight: bold;
+    color: #fff; /* White color for emphasis */
+    padding: 20px;
+    background-color: #1e1e1e; /* Dark background */
+    border-radius: 5px 5px 0 0; /* Only top corners rounded */
+}
+
+#modal-item-image {
+    width: 40%;
+    max-width: 224px; /* Adjusted for a better fit */
+    max-height: 224px; /* Adjusted for a better fit */
+    padding: 15px;
+}
+
+#modal-item-description {
+    font-size: 11px; /* Increase font size */
+    color: #fff; /* White color for readability */
+    background: rgba(0, 0, 0, 0.2); /* Darker background */
+    padding: 10px;
+}
+
+.modal-details {
+    padding: 20px;
+}
+
+.detail-item {
+    display: flex; /* Flexbox for alignment */
+    justify-content: space-between; /* Space between label and value */
+    align-items: center; /* Center vertically */
+    padding: 5px 0; /* Padding for spacing */
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bottom border for separation */
+    font-size: 12px;
+}
+
+.detail-item:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.detail-value {
+    display: flex; /* Use flexbox to align icon and price text */
+    align-items: center; /* Center items vertically */
+    color: #fff; /* Color for value text */
+    font-size: 11px; /* Font size for values */
+    margin-left: 10px; /* Space between label and value */
+}
+
+.price-icon {
+    max-width: 24px; /* Adjust width as needed */
+    max-height: 24px; /* Adjust height as needed */
+    margin-right: 5px; /* Space between icon and price */
+    vertical-align: middle; /* Center align the icon */
+}
+
+.quantity-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.quantity-button {
+    background: rgba(0, 0, 0, 0.2); /* Darker background */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 0 15px;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.chest-open-button {
+    width: 100%;
+    padding: 25px;
+    background-color: #1e1e1e; /* Dark background */
+    color: #fff;
+    border: none;
+    border-radius: 0 0 5px 5px; /* Only top corners rounded */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transition effect */
+    font-size: 14px;
+    font-weight: bold;
+}

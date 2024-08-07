@@ -1,35 +1,66 @@
 /* General styles for the inventory container */
 .inventory-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 2 items in each row */
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Responsive columns */
+    gap: 10px;
+    padding: 10px;
     background-color: #666;
-    max-width: 600px; /* Adjust the width as needed */
-    margin: 0 auto; /* Center the container */
     justify-items: center; /* Center items horizontally */
     align-items: center; /* Center items vertically */
 }
 
 /* Styles for each inventory item */
-.inventory-item {
+.inventory-item, .empty-slot {
+    width: 80px; /* Set a fixed width for consistency */
+    height: 80px; /* Set a fixed height for consistency */
     display: flex;
     justify-content: center;
     align-items: center;
-   
     background-color: #333;
-
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+        border: 1px solid #999; /* Dotted border for empty slots */
 
 }
+
 .inventory-item img {
-    width: 50px;
-    height: 50px;
+    width: 60%; /* Keep the image size proportional */
     object-fit: contain;
-    padding: 20px;
+    padding: 5px; /* Adjust padding for better fit */
 }
+
+.empty-slot {
+    background-color: #444; /* Color for empty slots */
+    border: 1px solid #999; /* Dotted border for empty slots */
+    color: #fff; /* White text for empty slots */
+    padding: 0; /* No padding for empty slots */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    .inventory-container {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* Smaller columns for small screens */
+    }
+
+    .inventory-item, .empty-slot {
+        width: 60px; /* Smaller width for small screens */
+        height: 60px; /* Smaller height for small screens */
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .inventory-container {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); /* Medium columns for medium screens */
+    }
+
+    .inventory-item, .empty-slot {
+        width: 70px; /* Medium width for medium screens */
+        height: 70px; /* Medium height for medium screens */
+    }
+}
+
+
 
 /* Styles for the filter container */
 .filter-container {

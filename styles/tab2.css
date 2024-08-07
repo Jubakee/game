@@ -22,8 +22,8 @@
 .shop-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 items in each row */
-    gap: 15px;
-    padding: 15px;
+    gap: 25px;
+    padding: 20px;
 }
 
 .shop-item {
@@ -113,7 +113,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 80%;
+    height: 80%; /* Adjusted to fill the screen */
     background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
     padding-bottom: 2000px;
     justify-content: center;
