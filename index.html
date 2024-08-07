@@ -66,6 +66,9 @@
                     <button class="inventory-filter-button" onclick="filterInventoryItems('Chest', this)">CHESTS</button>
                     <button class="inventory-filter-button" onclick="filterInventoryItems('Equipment', this)">EQUIPMENT</button>
                 </div>
+                <div class="open-all-container">
+                    <button id="open-all-chests" class="inventory-filter-button" onclick="openAllChests()">OPEN ALL</button>
+                </div>
                 <div class="inventory-container" id="inventory-container">
                     <!-- Inventory items will be dynamically populated here -->
                 </div>
@@ -142,20 +145,20 @@
                 <strong>RARITY</strong> <span id="modal-item-rarity" class="detail-value"></span>
             </div>
             <div class="detail-item">
-                <strong>LEVEL</strong> <span id="modal-item-level" class="detail-value"></span>
+                <strong>HOURLY PROFIT</strong> <span id="modal-item-income" class="detail-value"></span>
             </div>
-            <!-- <div class="detail-item">
-                <strong>PRICE</strong>
-                <span class="detail-value">
-                    <img src="assets/currency.png" alt="Currency Icon" class="price-icon"> 
-                    <span id="modal-item-price"></span>
-                </span>
-            </div> -->
+            <div id="modal-item-level-container" class="detail-item">
+                <strong>ITEM LEVEL</strong>
+                <div id="modal-item-stars" class="detail-value stars-container"></div>
+            </div>
         </div>
         <button id="chest-open-button" class="chest-open-button" style="display: none;">OPEN</button>
         <button id="equip-button" class="chest-open-button" style="display: none;">EQUIP</button>
     </div>
 </div>
+
+
+
 
 
 

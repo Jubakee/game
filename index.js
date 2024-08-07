@@ -165,6 +165,21 @@ function showAccumulatedCoinsPopup(earnedCoins) {
     }, 2000);
 }
 
+function getRarityColor(rarity) {
+    switch (rarity) {
+        case 'COMMON':
+            return '#b0b0b0';
+        case 'UNCOMMON':
+            return '#4caf50';
+        case 'RARE':
+            return '#FFD700';
+        case 'EPIC':
+            return '#e040fb';
+        default:
+            return '#fff';
+    }
+}
+
 
 // Initialization
 //resetGame(); // Uncomment to reset the game

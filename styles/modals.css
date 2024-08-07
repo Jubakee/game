@@ -116,7 +116,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 72%; /* Adjusted to fill the screen */
+    height: 80%; /* Adjusted to fill the screen */
     background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
     padding-bottom: 2000px;
     justify-content: center;
@@ -171,7 +171,7 @@ h2 {
     padding: 5px 0; /* Padding for spacing */
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bottom border for separation */
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .detail-item:last-child {
@@ -231,4 +231,24 @@ h2 {
     transition: background-color 0.3s; /* Transition effect */
     font-size: 14px;
     font-weight: bold;
+}
+
+
+.stars-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: -7px;
+}
+
+.star {
+    width: 24px;
+    height: 24px;
+    margin: 0 2px;
+    background-image: url('/assets/item_star.png'); /* Replace with the path to your star icon */
+    background-size: cover;
+}
+
+.star.empty {
+    opacity: 0.3;
 }

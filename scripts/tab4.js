@@ -20,8 +20,8 @@ function displayInventory() {
     const modalItemImage = document.getElementById('modal-item-image');
     const modalItemDescription = document.getElementById('modal-item-description');
     const modalItemRarity = document.getElementById('modal-item-rarity');
-    const modalItemLevel = document.getElementById('modal-item-level');
-    const modalItemPrice = document.getElementById('modal-item-price');
+    const modalItemLevelContainer = document.getElementById('modal-item-level-container');
+    const modalItemStars = document.getElementById('modal-item-stars');
     const chestOpenButton = document.getElementById('chest-open-button');
     const equipButton = document.getElementById('equip-button');
 
@@ -60,13 +60,41 @@ function displayInventory() {
                 modalItemImage.src = item.image;
                 modalItemDescription.textContent = item.description;
                 modalItemRarity.textContent = item.rarity;
-                modalItemLevel.textContent = item.level;
-                // modalItemPrice.textContent = item.price;
+                modalItemRarity.style.color = getRarityColor(item.rarity);
+            
+                // Set the item income
+                const modalItemIncome = document.getElementById('modal-item-income');
 
+                // Create an image element for the income icon
+                const incomeIcon = document.createElement('img');
+                incomeIcon.src = 'assets/currency.png'; // Path to your income icon
+                incomeIcon.className = 'price-icon'; // Optional: add a class for styling
+                
+                // Clear previous income content
+                modalItemIncome.innerHTML = ''; // Clear previous content
+                
+                // Append the icon and the income text
+                modalItemIncome.appendChild(incomeIcon); // Add the icon
+                modalItemIncome.appendChild(document.createTextNode(item.income)); // Add the income text
+                
+            
+                // Generate stars based on item level
+                modalItemStars.innerHTML = ''; // Clear previous stars
+                const maxStars = 5;
+                const itemLevel = Math.min(item.level, maxStars);
+                for (let i = 0; i < maxStars; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    if (i >= itemLevel) {
+                        star.classList.add('empty');
+                    }
+                    modalItemStars.appendChild(star);
+                }
+            
                 modal.style.display = 'flex'; // Show the modal
                 modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
                 modalItemImage.setAttribute('data-rarity', item.rarity); // Store the rarity of the chest
-
+            
                 // Set button visibility and text based on item type
                 if (item.type === 'Chest') {
                     chestOpenButton.style.display = 'block';
@@ -76,6 +104,9 @@ function displayInventory() {
                     equipButton.style.display = 'block';
                 }
             });
+             
+            
+
         } else {
             // Show a placeholder for empty slots
             itemDiv.classList.add('empty-slot');
@@ -92,6 +123,7 @@ function displayInventory() {
         }
     });
 }
+
 
 function setupModalButtons() {
     const chestOpenButton = document.getElementById('chest-open-button');
@@ -121,7 +153,7 @@ function setupModalButtons() {
                 case 'RARE':
                     selectedPool = rareItemPool;
                     break;
-                case 'UNIQUE':
+                case 'EPIC':
                     selectedPool = epicItemPool;
                     break;
                 default:
@@ -172,6 +204,46 @@ function setupModalButtons() {
         }
     });
 }
+
+function openAllChests() {
+    playerData.inventory.forEach((item, index) => {
+        if (item && item.type === 'Chest') {
+            console.log('Opening chest at index:', index, 'Item details:', item);
+
+            // Determine the correct item pool based on the chest's rarity
+            let selectedPool;
+            switch (item.rarity) {
+                case 'COMMON':
+                    selectedPool = commonItemPool;
+                    break;
+                case 'UNCOMMON':
+                    selectedPool = uncommonItemPool;
+                    break;
+                case 'RARE':
+                    selectedPool = rareItemPool;
+                    break;
+                case 'EPIC':
+                    selectedPool = epicItemPool;
+                    break;
+                default:
+                    console.warn('Unknown rarity:', item.rarity);
+                    selectedPool = commonItemPool; // Default pool in case of an error
+            }
+
+            // Generate a new item based on the chest's rarity
+            const newItem = selectedPool[Math.floor(Math.random() * selectedPool.length)]();
+
+            // Replace the chest with the new item in the same index
+            playerData.inventory[index] = newItem;
+            console.log('Replaced chest with new item:', newItem);
+        }
+    });
+
+    // Refresh the inventory display
+    displayInventory();
+}
+
+
 
 // Call the function to display items when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {

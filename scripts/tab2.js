@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const items = [
         { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: '1', image: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'COMMON', level: '1', isOpen: false },
-        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '1', image: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '2', isOpen: false },
-        { id: '3', name: 'GOLDEN CHEST', type: 'Chest', price: '10,000', image: 'assets/chest_gold.png', description: 'A GOLDEN CHEST', rarity: 'RARE', level: '50', isOpen: false },
-        { id: '4', name: 'DIAMOND CHEST', type: 'Chest', price: '50,000', image: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'UNIQUE', level: '100', isOpen: false },
+        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '1', image: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '1', isOpen: false },
+        { id: '3', name: 'GOLDEN CHEST', type: 'Chest', price: '1', image: 'assets/chest_gold.png', description: 'A GOLDEN CHEST', rarity: 'RARE', level: '1', isOpen: false },
+        { id: '4', name: 'DIAMOND CHEST', type: 'Chest', price: '1', image: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'EPIC', level: '1', isOpen: false },
     ];
 
     // Render shop items based on filter
@@ -70,58 +70,39 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('overlay-item-description').textContent = item.description;
         document.getElementById('overlay-item-level').textContent = item.level;
         document.getElementById('overlay-item-price').textContent = item.price;
-
+    
         const rarityElement = document.getElementById('overlay-item-rarity');
         rarityElement.textContent = item.rarity;
-
-        // Set rarity color based on item rarity
-        switch (item.rarity) {
-            case 'COMMON':
-                rarityElement.style.color = '#b0b0b0';
-                break;
-            case 'UNCOMMON':
-                rarityElement.style.color = '#4caf50';
-                break;
-            case 'RARE':
-                rarityElement.style.color = '#FFD700';
-                break;
-            case 'UNIQUE':
-                rarityElement.style.color = '#9c27b0';
-                break;
-            default:
-                rarityElement.style.color = '#fff';
-                break;
-        }
-
+        rarityElement.style.color = getRarityColor(item.rarity);
+    
         const requiredLevel = parseInt(item.level);
         const playerLevelElement = document.getElementById('overlay-item-level');
         playerLevelElement.style.color = playerData.playerLevel < requiredLevel ? 'red' : '';
-
+    
         const requiredBalance = parseInt(item.price.replace(/,/g, ''));
         const playerBalanceElement = document.getElementById('overlay-item-price');
         playerBalanceElement.style.color = playerData.playerBalance < requiredBalance ? 'red' : '';
-
+    
         itemOverlay.style.display = 'flex';
-
+    
         const purchaseButton = document.getElementById('purchase-button');
-
-        // Update purchase button state based on player level and balance
+    
         const updatePurchaseButtonState = () => {
             purchaseButton.disabled = playerLevelElement.style.color === 'red' || playerBalanceElement.style.color === 'red';
             purchaseButton.style.color = purchaseButton.disabled ? 'red' : '';
         };
-
+    
         updatePurchaseButtonState();
-
+    
         purchaseButton.onclick = () => {
             const quantity = parseInt(itemQuantityInput.value);
             totalCost = requiredBalance * quantity;
-
+    
             confirmationMessage.innerHTML = `BUY ${quantity} ${item.name}(S) FOR: <div class="confirm-price">
                 <img id="confirm-icon" src="assets/currency.png" alt="Confirm Icon" />
                 <span>${totalCost.toLocaleString()}?</span>
             </div>`;
-
+    
             confirmationModal.style.display = 'block';
         };
     }
@@ -131,33 +112,48 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmationModal.style.display = 'none';
     };
 
-    // Confirm purchase action
-    confirmPurchaseButton.onclick = () => {
-        const quantity = parseInt(itemQuantityInput.value);
-        playerData.playerBalance -= totalCost;
+// Confirm purchase action
+confirmPurchaseButton.onclick = () => {
+    const quantity = parseInt(itemQuantityInput.value);
+    const emptySlots = playerData.inventory.filter(slot => slot === null).length;
 
-        for (let i = 0; i < quantity; i++) {
-            const emptyIndex = playerData.inventory.findIndex(slot => slot === null);
-            if (emptyIndex !== -1) {
-                playerData.inventory[emptyIndex] = { ...currentItem }; // Clone the current item to avoid reference issues
-            } else {
-                console.log('Inventory is full. Cannot add more items.');
-                break;
-            }
+    // Check if there is enough space in the inventory
+    if (quantity > emptySlots) {
+        alert(`Not enough inventory space! You can only purchase ${emptySlots} more item(s).`);
+        return; // Exit the function if not enough space
+    }
+
+    // Check if the player has enough balance for the total cost
+    if (totalCost > playerData.playerBalance) {
+        alert(`Not enough balance! You need ${totalCost - playerData.playerBalance} more coins.`);
+        return; // Exit the function if balance is insufficient
+    }
+
+    playerData.playerBalance -= totalCost;
+
+    for (let i = 0; i < quantity; i++) {
+        const emptyIndex = playerData.inventory.findIndex(slot => slot === null);
+        if (emptyIndex !== -1) {
+            playerData.inventory[emptyIndex] = { ...currentItem }; // Clone the current item to avoid reference issues
+        } else {
+            console.log('Inventory is full. Cannot add more items.');
+            break;
         }
+    }
 
-        savePlayerData();
-        console.log(`Purchased ${quantity} of ${currentItem.name} for ${totalCost} coins.`);
-        
-        itemQuantityInput.value = 1;
-        itemOverlay.style.display = 'none';
-        confirmationModal.style.display = 'none';
-        alert(`Successfully purchased ${quantity} ${currentItem.name}(s) for ${totalCost} coins!`);
-        console.log(playerData.inventory);
+    savePlayerData();
+    console.log(`Purchased ${quantity} of ${currentItem.name} for ${totalCost} coins.`);
+    
+    itemQuantityInput.value = 1;
+    itemOverlay.style.display = 'none';
+    confirmationModal.style.display = 'none';
+    // alert(`Successfully purchased ${quantity} ${currentItem.name}(s) for ${totalCost} coins!`);
+    console.log(playerData.inventory);
 
-        // Refresh inventory display
-        displayInventory();
-    };
+    // Refresh inventory display
+    displayInventory();
+};
+
 
     // Handle quantity changes and modal closing
     document.addEventListener('click', (event) => {

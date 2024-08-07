@@ -20,18 +20,18 @@ function createItem(name, image, description, rarity, type, slot, level, income)
 }
 
 const commonItemPool = [
-    () => createItem('Head', './items/head1.png', 'Head Item', 'Common', 'Equipment', 'Head',1,10),
+    () => createItem('Sandra\'s Helmet', './items/head1.png', 'Stylish helmet offering great protection in battle.', 'COMMON', 'Equipment', 'Head',1,10),
 ];
 
 const uncommonItemPool = [
-    () => createItem('Top', './items/top1.png', '+Top Item', 'Uncommon', 'Equipment', 'Top',5,15),
+    () => createItem('Sandra\'s Sweater', './items/top1.png', 'Cozy sweater for warmth and style.', 'UNCOMMON', 'Equipment', 'Top',1,15),
 ];
 
 const rareItemPool = [
-    () => createItem('Bottom', './items/bottom1.png', 'Bottom Icon', 'Rare', 'Equipment', 'Bottom',10,20),
-    () => createItem('Hands', './items/hands1.png', 'Hands Item', 'Rare', 'Equipment', 'Hands',10,20),
+    () => createItem('Sandra\'s Pants', './items/bottom1.png', 'Comfortable pants for everyday wear.', 'RARE', 'Equipment', 'Bottom',1,20),
+    () => createItem('Sandra\'s Gloves', './items/hands1.png', 'Stylish gloves for warmth and grip.', 'RARE', 'Equipment', 'Hands',1,20),
 ];
 
 const epicItemPool = [
-    () => createItem('Feet', './items/feet1.png', 'Feet Item', 'Epic', 'Equipment', 'Feet',25,50),
+    () => createItem('Sandra\'s Shoes', './items/feet1.png', 'Comfortable shoes for everyday wear.', 'EPIC', 'Equipment', 'Feet',1,50),
 ];
