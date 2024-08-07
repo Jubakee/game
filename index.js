@@ -167,7 +167,7 @@ function showAccumulatedCoinsPopup(earnedCoins) {
 
 
 // Initialization
-// resetGame(); // Uncomment to reset the game
+//resetGame(); // Uncomment to reset the game
 setUserInfo();
 loadPlayerData();
 setInterval(updateBalance, 1000);

@@ -38,6 +38,8 @@
   background-color: #444;
     color: #fff;
     /* border: 3px solid #888; */
+    border: 1px solid #999; /* Dotted border for empty slots */
+
 
 }
 

@@ -20,29 +20,18 @@ function createItem(name, image, description, rarity, type, slot, level, income)
 }
 
 const commonItemPool = [
-    () => createItem('Hat 1', 'assets/cuurency.png', '+5 per second', 'Common', 'equipment', 'head',1,5),
-    () => createItem('Hat 2', 'assets/cuurency.png', '+5 per second', 'Common', 'equipment', 'head',1,5),
-    () => createItem('Top 1', 'assets/cuurency.png', '+5 per second', 'Common', 'equipment', 'top',1,5),
-    () => createItem('Bottom 2', 'assets/cuurency.png', '+ 💵 5 per second', 'Common', 'equipment', 'bottom',1,5),
+    () => createItem('Head', './items/head1.png', 'Head Item', 'Common', 'Equipment', 'Head',1,10),
 ];
 
 const uncommonItemPool = [
-    () => createItem('Hat 3', './assets/hat3.png', '+10 per second', 'Uncommon', 'equipment', 'head',1,10),
-    () => createItem('Shoe 1', './assets/item1.png', '+10 per second', 'Uncommon', 'equipment', 'feet',1,10),
-    () => createItem('Top 1', './assets/item2.png', '+10 per second', 'Uncommon', 'equipment', 'top',1,10),
-    () => createItem('Bottom 1', './assets/bottom1.png', '+10 per second', 'Uncommon', 'equipment', 'bottom',1,10),
-    () => createItem('Hands 1', './assets/gloves1.png', '+10 per second', 'Uncommon', 'equipment', 'hand',1,10),
+    () => createItem('Top', './items/top1.png', '+Top Item', 'Uncommon', 'Equipment', 'Top',5,15),
 ];
 
 const rareItemPool = [
-    () => createItem('Hat 4', './assets/hat4.png', '+15 per second', 'Rare', 'equipment', 'head',1,15),
-    () => createItem('Head 1', './assets/head1.png', '+15 per second', 'Rare', 'equipment', 'head',1,15),
-    () => createItem('Shoe 2', './assets/item3.png', '+15 per second', 'Rare', 'equipment', 'feet',1,15),
-    () => createItem('Shoe 3', './assets/item4.png', '+15 per second', 'Rare', 'equipment', 'feet',1,15),
-    () => createItem('Bottom 3', './assets/bottom3.png', '+15 per second', 'Rare', 'equipment', 'bottom',1,15),
+    () => createItem('Bottom', './items/bottom1.png', 'Bottom Icon', 'Rare', 'Equipment', 'Bottom',10,20),
+    () => createItem('Hands', './items/hands1.png', 'Hands Item', 'Rare', 'Equipment', 'Hands',10,20),
 ];
 
 const epicItemPool = [
-    () => createItem('Hat 5', './assets/hat5.png', '+20 per second', 'Epic', 'equipment', 'head',1,20),
-    () => createItem('Top 2', './assets/item5.png', '+20 per second', 'Epic', 'equipment', 'top',1,20),
+    () => createItem('Feet', './items/feet1.png', 'Feet Item', 'Epic', 'Equipment', 'Feet',25,50),
 ];

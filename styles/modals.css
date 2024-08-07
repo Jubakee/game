@@ -116,7 +116,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 80%; /* Adjusted to fill the screen */
+    height: 72%; /* Adjusted to fill the screen */
     background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
     padding-bottom: 2000px;
     justify-content: center;

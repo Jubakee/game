@@ -7,15 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmPurchaseButton = document.getElementById('confirm-purchase');
     const cancelPurchaseButton = document.getElementById('cancel-purchase');
     const confirmationMessage = document.getElementById('confirmation-message');
-    
+
     let currentItem;
     let totalCost;
 
     const items = [
-        { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: '100', img: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'COMMON', level: '1', isOpen: false },
-        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '5,000', img: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '25', isOpen: false },
-        { id: '3', name: 'GOLDEN CHEST', type: 'Chest', price: '10,000', img: 'assets/chest_gold.png', description: 'A GOLDEN CHEST', rarity: 'RARE', level: '50', isOpen: false },
-        { id: '4', name: 'DIAMOND CHEST', type: 'Chest', price: '50,000', img: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'UNIQUE', level: '100', isOpen: false },
+        { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: '1', image: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'COMMON', level: '1', isOpen: false },
+        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '5,000', image: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '25', isOpen: false },
+        { id: '3', name: 'GOLDEN CHEST', type: 'Chest', price: '10,000', image: 'assets/chest_gold.png', description: 'A GOLDEN CHEST', rarity: 'RARE', level: '50', isOpen: false },
+        { id: '4', name: 'DIAMOND CHEST', type: 'Chest', price: '50,000', image: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'UNIQUE', level: '100', isOpen: false },
     ];
 
     // Render shop items based on filter
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="item-header">
                         <div class="item-name">${item.name}</div>
                     </div>
-                    <img src="${item.img}" alt="${item.name}">
+                    <img src="${item.image}" alt="${item.name}">
                     <div class="item-info">
                         <div class="item-price">
                             <img id="coin-icon" src="assets/currency.png" alt="Coins Icon" />
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showItemOverlay(item) {
         currentItem = item;
         document.getElementById('overlay-item-name').textContent = item.name;
-        document.getElementById('overlay-item-image').src = item.img;
+        document.getElementById('overlay-item-image').src = item.image;
         document.getElementById('overlay-item-description').textContent = item.description;
         document.getElementById('overlay-item-level').textContent = item.level;
         document.getElementById('overlay-item-price').textContent = item.price;
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < quantity; i++) {
             const emptyIndex = playerData.inventory.findIndex(slot => slot === null);
             if (emptyIndex !== -1) {
-                playerData.inventory[emptyIndex] = currentItem;
+                playerData.inventory[emptyIndex] = { ...currentItem }; // Clone the current item to avoid reference issues
             } else {
                 console.log('Inventory is full. Cannot add more items.');
                 break;
@@ -153,7 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
         itemOverlay.style.display = 'none';
         confirmationModal.style.display = 'none';
         alert(`Successfully purchased ${quantity} ${currentItem.name}(s) for ${totalCost} coins!`);
-        console.log(playerData.inventory)
+        console.log(playerData.inventory);
+
+        // Refresh inventory display
+        displayInventory();
     };
 
     // Handle quantity changes and modal closing
@@ -182,4 +185,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderItems('All');
     window.filterItems = renderItems;
+    displayInventory();
 });
