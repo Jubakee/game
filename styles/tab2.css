@@ -22,7 +22,7 @@
 .shop-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 items in each row */
-    gap: 25px;
+    gap: 15px;
     padding: 20px;
 }
 
