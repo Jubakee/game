@@ -1,3 +1,18 @@
+let currentFilter = 'All'; // Default filter
+
+function filterInventoryItems(filter, button) {
+    currentFilter = filter;
+
+    // Remove active class from all filter buttons
+    document.querySelectorAll('.inventory-filter-button').forEach(btn => btn.classList.remove('active'));
+
+    // Add active class to the clicked button
+    button.classList.add('active');
+
+    // Refresh the inventory display with the new filter
+    displayInventory();
+}
+
 function displayInventory() {
     const inventoryContainer = document.getElementById('inventory-container');
     const modal = document.getElementById('inventory-item-modal');
@@ -17,8 +32,16 @@ function displayInventory() {
     // Clear previous items
     inventoryContainer.innerHTML = '';
 
+    // Filter inventory items based on the current filter
+    const filteredItems = playerData.inventory.filter(item => {
+        if (currentFilter === 'All') return true;
+        if (currentFilter === 'Chest' && item && item.type === 'Chest') return true;
+        if (currentFilter === 'Equipment' && item && item.type === 'Equipment') return true;
+        return false;
+    });
+
     // Render all slots in the inventory
-    playerData.inventory.forEach((item, index) => {
+    filteredItems.forEach((item, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'inventory-item';
         itemDiv.setAttribute('data-slot', index); // Add data-slot attribute for slot index
@@ -37,7 +60,7 @@ function displayInventory() {
                 modalItemDescription.textContent = item.description;
                 modalItemRarity.textContent = item.rarity;
                 modalItemLevel.textContent = item.level;
-                // modalItemPrice.textContent = item.price;
+                modalItemPrice.textContent = item.price;
 
                 modal.style.display = 'flex'; // Show the modal
                 modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
