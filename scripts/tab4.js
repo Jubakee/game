@@ -60,7 +60,7 @@ function displayInventory() {
                 modalItemDescription.textContent = item.description;
                 modalItemRarity.textContent = item.rarity;
                 modalItemLevel.textContent = item.level;
-                modalItemPrice.textContent = item.price;
+                // modalItemPrice.textContent = item.price;
 
                 modal.style.display = 'flex'; // Show the modal
                 modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
