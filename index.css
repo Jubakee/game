@@ -47,7 +47,7 @@ body {
 #coins-container {
   display: flex;
   align-items: center;
-  background: rgba(0, 0, 0, 0.8); /* Darker background */
+  background-color: #1e1e1e; /* Dark background */
   padding: 5px;
   border-radius: 5px;
 }
