@@ -23,6 +23,7 @@ function displayInventory() {
     const modalItemLevel = document.getElementById('modal-item-level');
     const modalItemPrice = document.getElementById('modal-item-price');
     const chestOpenButton = document.getElementById('chest-open-button');
+    const equipButton = document.getElementById('equip-button');
 
     if (!inventoryContainer) {
         console.error('Inventory container not found');
@@ -65,6 +66,15 @@ function displayInventory() {
                 modal.style.display = 'flex'; // Show the modal
                 modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
                 modalItemImage.setAttribute('data-rarity', item.rarity); // Store the rarity of the chest
+
+                // Set button visibility and text based on item type
+                if (item.type === 'Chest') {
+                    chestOpenButton.style.display = 'block';
+                    equipButton.style.display = 'none';
+                } else if (item.type === 'Equipment') {
+                    chestOpenButton.style.display = 'none';
+                    equipButton.style.display = 'block';
+                }
             });
         } else {
             // Show a placeholder for empty slots
@@ -81,9 +91,15 @@ function displayInventory() {
             modal.style.display = 'none'; // Hide the modal
         }
     });
+}
+
+function setupModalButtons() {
+    const chestOpenButton = document.getElementById('chest-open-button');
+    const equipButton = document.getElementById('equip-button');
 
     // Add click event to the chest open button
     chestOpenButton.addEventListener('click', () => {
+        const modalItemImage = document.getElementById('modal-item-image');
         const slotIndex = parseInt(modalItemImage.getAttribute('data-slot'));
         const chestRarity = modalItemImage.getAttribute('data-rarity');
         if (slotIndex >= 0 && slotIndex < playerData.inventory.length) {
@@ -127,7 +143,7 @@ function displayInventory() {
             }
 
             // Hide the modal
-            modal.style.display = 'none';
+            document.getElementById('inventory-item-modal').style.display = 'none';
 
             // Refresh the inventory display
             displayInventory();
@@ -136,7 +152,29 @@ function displayInventory() {
             console.log('Updated inventory:', playerData.inventory.filter(item => item !== null));
         }
     });
+
+    // Add click event to the equip button
+    equipButton.addEventListener('click', () => {
+        const modalItemImage = document.getElementById('modal-item-image');
+        const slotIndex = parseInt(modalItemImage.getAttribute('data-slot'));
+        if (slotIndex >= 0 && slotIndex < playerData.inventory.length) {
+            const itemToEquip = playerData.inventory[slotIndex];
+            console.log('Equipping item at index:', slotIndex, 'Item details:', itemToEquip);
+
+            // Implement your logic for equipping the item here
+            // Example: playerData.equipment.head = itemToEquip;
+
+            // Hide the modal
+            document.getElementById('inventory-item-modal').style.display = 'none';
+
+            // Log the action
+            console.log('Item equipped:', itemToEquip);
+        }
+    });
 }
 
 // Call the function to display items when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', displayInventory);
+document.addEventListener('DOMContentLoaded', () => {
+    setupModalButtons();
+    displayInventory();
+});

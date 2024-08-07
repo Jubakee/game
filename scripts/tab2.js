@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const items = [
         { id: '1', name: 'WOODEN CHEST', type: 'Chest', price: '1', image: 'assets/chest_wooden.png', description: 'A WOODEN CHEST', rarity: 'COMMON', level: '1', isOpen: false },
-        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '5,000', image: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '25', isOpen: false },
+        { id: '2', name: 'SILVER CHEST', type: 'Chest', price: '1', image: 'assets/chest_silver.png', description: 'A SILVER CHEST', rarity: 'UNCOMMON', level: '2', isOpen: false },
         { id: '3', name: 'GOLDEN CHEST', type: 'Chest', price: '10,000', image: 'assets/chest_gold.png', description: 'A GOLDEN CHEST', rarity: 'RARE', level: '50', isOpen: false },
         { id: '4', name: 'DIAMOND CHEST', type: 'Chest', price: '50,000', image: 'assets/chest_diamond.png', description: 'A DIAMOND CHEST', rarity: 'UNIQUE', level: '100', isOpen: false },
     ];

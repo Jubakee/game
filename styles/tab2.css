@@ -122,12 +122,14 @@
     align-items: center;
     z-index: 1001;
     backdrop-filter: blur(1px); /* Add blur effect */
+
+
 }
 
 .overlay-content {
     background-color: #333;
     /* border: 1px solid #888; */
-
+    border: 1px solid #999; /* Dotted border for empty slots */
     border-radius: 5px;
     text-align: center;
     position: relative;
