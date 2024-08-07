@@ -61,22 +61,29 @@ function displayInventory() {
                 modalItemDescription.textContent = item.description;
                 modalItemRarity.textContent = item.rarity;
                 modalItemRarity.style.color = getRarityColor(item.rarity);
-            
+                
                 // Set the item income
                 const modalItemIncome = document.getElementById('modal-item-income');
-
-                // Create an image element for the income icon
-                const incomeIcon = document.createElement('img');
-                incomeIcon.src = 'assets/currency.png'; // Path to your income icon
-                incomeIcon.className = 'price-icon'; // Optional: add a class for styling
-                
-                // Clear previous income content
-                modalItemIncome.innerHTML = ''; // Clear previous content
-                
-                // Append the icon and the income text
-                modalItemIncome.appendChild(incomeIcon); // Add the icon
-                modalItemIncome.appendChild(document.createTextNode(item.income)); // Add the income text
-                
+                modalItemIncome.textContent = item.income;
+            
+                // Show/Hide rows based on item type
+                if (item.type === 'Chest') {
+                    chestOpenButton.style.display = 'block';
+                    equipButton.style.display = 'none';
+            
+                    // Hide the "HOURLY PROFIT" and "ITEM LEVEL" rows
+                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
+                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'none';
+                    document.getElementById('modal-item-level-container').style.display = 'none'; // Hides ITEM LEVEL
+                } else if (item.type === 'Equipment') {
+                    chestOpenButton.style.display = 'none';
+                    equipButton.style.display = 'block';
+            
+                    // Show the "HOURLY PROFIT" and "ITEM LEVEL" rows
+                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
+                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'flex'; // Adjust as needed
+                    document.getElementById('modal-item-level-container').style.display = 'flex'; // Adjust as needed
+                }
             
                 // Generate stars based on item level
                 modalItemStars.innerHTML = ''; // Clear previous stars
@@ -94,16 +101,8 @@ function displayInventory() {
                 modal.style.display = 'flex'; // Show the modal
                 modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
                 modalItemImage.setAttribute('data-rarity', item.rarity); // Store the rarity of the chest
-            
-                // Set button visibility and text based on item type
-                if (item.type === 'Chest') {
-                    chestOpenButton.style.display = 'block';
-                    equipButton.style.display = 'none';
-                } else if (item.type === 'Equipment') {
-                    chestOpenButton.style.display = 'none';
-                    equipButton.style.display = 'block';
-                }
             });
+            
              
             
 
