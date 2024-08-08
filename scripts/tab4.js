@@ -16,14 +16,6 @@ function filterInventoryItems(filter, button) {
 function displayInventory() {
     const inventoryContainer = document.getElementById('inventory-container');
     const modal = document.getElementById('inventory-item-modal');
-    const modalItemName = document.getElementById('modal-item-name');
-    const modalItemImage = document.getElementById('modal-item-image');
-    const modalItemDescription = document.getElementById('modal-item-description');
-    const modalItemRarity = document.getElementById('modal-item-rarity');
-    const modalItemLevelContainer = document.getElementById('modal-item-level-container');
-    const modalItemStars = document.getElementById('modal-item-stars');
-    const chestOpenButton = document.getElementById('chest-open-button');
-    const equipButton = document.getElementById('equip-button');
 
     if (!inventoryContainer) {
         console.error('Inventory container not found');
@@ -148,30 +140,26 @@ function showItemModal(item) {
         modalItemIncome.appendChild(document.createTextNode(item.income)); // Add the income text
     }
 
-    // Show/Hide rows based on item type
-    if (item.type === 'Chest') {
-        chestOpenButton.style.display = 'block';
-        equipButton.style.display = 'none';
-        modalItemLevelContainer.style.display = 'none';
-    } else if (item.type === 'Equipment') {
-        chestOpenButton.style.display = 'none';
-        equipButton.style.display = 'block';
-        modalItemLevelContainer.style.display = 'flex'; // Show level for Equipment
-    }
+    // // Show/Hide rows based on item type
+    // if (item.type === 'Chest') {
+    //     chestOpenButton.style.display = 'block';
+    //     equipButton.style.display = 'none';
+    //     modalItemLevelContainer.style.display = 'none';
+    // } else if (item.type === 'Equipment') {
+    //     chestOpenButton.style.display = 'none';
+    //     equipButton.style.display = 'block';
+    //     modalItemLevelContainer.style.display = 'flex'; // Show level for Equipment
+    // }
 
     // Generate stars based on item level
     modalItemStars.innerHTML = ''; // Clear previous stars
     const maxStars = 5;
     const itemLevel = Math.min(item.level, maxStars);
     
-    for (let i = 0; i < maxStars; i++) {
+    for (let i = 0; i < itemLevel; i++) {
         const star = document.createElement('img');
         star.classList.add('star');
-        star.src = 'assets/currency.png'; // Set the path to your star icon
-        // Optionally, you can set a different image for empty stars if needed
-        if (i >= itemLevel) {
-            star.src = 'assets/currency.png'; // Set a different image for empty stars
-        }
+        star.src = 'assets/item_star.png'; // Set the path for filled stars
         modalItemStars.appendChild(star);
     }
 
@@ -180,82 +168,16 @@ function showItemModal(item) {
 
 // Function to set up modal button actions
 function setupModalButtons() {
-    const chestOpenButton = document.getElementById('chest-open-button');
     const equipButton = document.getElementById('equip-button');
-
+    
     // Add click event to the chest open button
-    chestOpenButton.addEventListener('click', () => {
-        const modalItemImage = document.getElementById('modal-item-image');
-        const slotIndex = parseInt(modalItemImage.getAttribute('data-slot'));
-        const chestRarity = modalItemImage.getAttribute('data-rarity');
-        if (slotIndex >= 0 && slotIndex < playerData.inventory.length) {
-            const deletedItem = playerData.inventory[slotIndex];
-            console.log('Deleting item at index:', slotIndex, 'Item details:', deletedItem);
 
-            // Remove the item from the inventory
-            playerData.inventory[slotIndex] = null; // Set the slot to null
-
-            // Generate a new item based on the chest's rarity
-            let selectedPool;
-            switch (chestRarity) {
-                case 'COMMON':
-                    selectedPool = commonItemPool;
-                    break;
-                case 'UNCOMMON':
-                    selectedPool = uncommonItemPool;
-                    break;
-                case 'RARE':
-                    selectedPool = rareItemPool;
-                    break;
-                case 'EPIC':
-                    selectedPool = epicItemPool;
-                    break;
-                default:
-                    selectedPool = commonItemPool; // Default pool in case of an error
-            }
-
-            const newItem = selectedPool[Math.floor(Math.random() * selectedPool.length)]();
-
-            // Find the first empty slot
-            const emptySlotIndex = playerData.inventory.findIndex(item => item === null);
-            if (emptySlotIndex !== -1) {
-                // Add the new item to the first empty slot
-                playerData.inventory[emptySlotIndex] = newItem;
-                console.log('Added new item to slot:', emptySlotIndex, 'Item details:', newItem);
-            } else {
-                // If no empty slot is found, add the new item to the end of the inventory
-                playerData.inventory.push(newItem);
-                console.log('Added new item to the end of the inventory:', newItem);
-            }
-
-            // Hide the modal
-            document.getElementById('inventory-item-modal').style.display = 'none';
-
-            // Refresh the inventory display
-            displayInventory();
-
-            // Log the new inventory state
-            console.log('Updated inventory:', playerData.inventory.filter(item => item !== null));
-        }
-    });
 
     // Add click event to the equip button
     equipButton.addEventListener('click', () => {
-        const modalItemImage = document.getElementById('modal-item-image');
-        const slotIndex = parseInt(modalItemImage.getAttribute('data-slot'));
-        if (slotIndex >= 0 && slotIndex < playerData.inventory.length) {
-            const itemToEquip = playerData.inventory[slotIndex];
-            console.log('Equipping item at index:', slotIndex, 'Item details:', itemToEquip);
 
-            // Implement your logic for equipping the item here
-            // Example: playerData.equipment.head = itemToEquip;
+        console.log('ss')
 
-            // Hide the modal
-            document.getElementById('inventory-item-modal').style.display = 'none';
-
-            // Log the action
-            console.log('Item equipped:', itemToEquip);
-        }
     });
 }
 

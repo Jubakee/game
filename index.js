@@ -10,7 +10,7 @@ const INITIAL_PLAYER_DATA = {
     playerLvlEXP: 0,
     lastEnergyUpdate: Date.now(),
     playerLastLvlUpdate: Date.now(),
-    inventory: Array(20).fill(null),
+    inventory: Array(30).fill(null),
     playerEquipped: { head: null, top: null, bottom: null, hand: null, feet: null },
     playerMaterials: Array(6).fill(null)
 };
