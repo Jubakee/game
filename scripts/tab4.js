@@ -77,26 +77,42 @@ function displayInventory() {
                 
             
                 // Show/Hide rows based on item type
-         
+                if (item.type === 'Chest') {
+                    chestOpenButton.style.display = 'block';
+                    equipButton.style.display = 'none';
+            
+                    // Hide the "HOURLY PROFIT" and "ITEM LEVEL" rows
+                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
+                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'none';
+                    document.getElementById('modal-item-level-container').style.display = 'none'; // Hides ITEM LEVEL
+                } else if (item.type === 'Equipment') {
+                    chestOpenButton.style.display = 'none';
+                    equipButton.style.display = 'block';
+            
+                    // Show the "HOURLY PROFIT" and "ITEM LEVEL" rows
+                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
+                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'flex'; // Adjust as needed
+                    document.getElementById('modal-item-level-container').style.display = 'flex'; // Adjust as needed
+                }
             
                 // Generate stars based on item level
                 const modalItemStars = document.getElementById('modal-item-stars');
-modalItemStars.innerHTML = ''; // Clear previous stars
-const maxStars = 5;
-const itemLevel = Math.min(item.level, maxStars);
-
-for (let i = 0; i < maxStars; i++) {
-    const star = document.createElement('img');
-    star.classList.add('star');
-    star.src = 'assets/currency.png'; // Set the path to your star icon
-
-    // Optionally, you can set a different image for empty stars if needed
-    if (i >= itemLevel) {
-        star.src = 'assets/currency.png'; // Set a different image for empty stars
-    }
-
-    modalItemStars.appendChild(star);
-}
+                modalItemStars.innerHTML = ''; // Clear previous stars
+                const maxStars = 5;
+                const itemLevel = Math.min(item.level, maxStars);
+                
+                for (let i = 0; i < maxStars; i++) {
+                    const star = document.createElement('img');
+                    star.classList.add('star');
+                    star.src = 'assets/currency.png'; // Set the path to your star icon
+                
+                    // Optionally, you can set a different image for empty stars if needed
+                    if (i >= itemLevel) {
+                        star.src = 'assets/currency.png'; // Set a different image for empty stars
+                    }
+                
+                    modalItemStars.appendChild(star);
+                }
             
                 modal.style.display = 'flex'; // Show the modal
                 modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
