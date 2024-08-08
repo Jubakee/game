@@ -88,11 +88,11 @@ const itemLevel = Math.min(item.level, maxStars);
 for (let i = 0; i < maxStars; i++) {
     const star = document.createElement('img');
     star.classList.add('star');
-    star.src = '/assets/item_star.png'; // Set the path to your star icon
+    star.src = 'assets/currency.png'; // Set the path to your star icon
 
     // Optionally, you can set a different image for empty stars if needed
     if (i >= itemLevel) {
-        star.src = '/assets/item_star.png'; // Set a different image for empty stars
+        star.src = 'assets/currency.png'; // Set a different image for empty stars
     }
 
     modalItemStars.appendChild(star);
