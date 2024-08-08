@@ -77,23 +77,7 @@ function displayInventory() {
                 
             
                 // Show/Hide rows based on item type
-                if (item.type === 'Chest') {
-                    chestOpenButton.style.display = 'block';
-                    equipButton.style.display = 'none';
-            
-                    // Hide the "HOURLY PROFIT" and "ITEM LEVEL" rows
-                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
-                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'none';
-                    // document.getElementById('modal-item-level-container').style.display = 'none'; // Hides ITEM LEVEL
-                } else if (item.type === 'Equipment') {
-                    chestOpenButton.style.display = 'none';
-                    equipButton.style.display = 'block';
-            
-                    // Show the "HOURLY PROFIT" and "ITEM LEVEL" rows
-                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
-                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'flex'; // Adjust as needed
-                    document.getElementById('modal-item-level-container').style.display = 'flex'; // Adjust as needed
-                }
+         
             
                 // Generate stars based on item level
                 modalItemStars.innerHTML = ''; // Clear previous stars
