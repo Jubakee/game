@@ -54,78 +54,17 @@ function displayInventory() {
 
             itemDiv.appendChild(itemImg);
 
-            // Add click event listener to show modal with item details
+            // Add click event listener to handle item interactions
             itemDiv.addEventListener('click', () => {
-                modalItemName.textContent = item.name;
-                modalItemImage.src = item.image;
-                modalItemDescription.textContent = item.description;
-                modalItemRarity.textContent = item.rarity;
-                modalItemRarity.style.color = getRarityColor(item.rarity);
-                
-                // Set the item income
-                const modalItemIncome = document.getElementById('modal-item-income');
-                const incomeIcon = document.createElement('img');
-                incomeIcon.src = 'assets/currency.png'; // Path to your income icon
-                incomeIcon.className = 'price-icon'; // Optional: add a class for styling
-                
-                // Clear previous income content
-                modalItemIncome.innerHTML = ''; // Clear previous content
-                
-                // Append the icon and the income text
-                modalItemIncome.appendChild(incomeIcon); // Add the icon
-                modalItemIncome.appendChild(document.createTextNode(item.income)); // Add the income text
-                
-            
-                // Show/Hide rows based on item type
                 if (item.type === 'Chest') {
-                    chestOpenButton.style.display = 'block';
-                    equipButton.style.display = 'none';
-            
-                    // Hide the "HOURLY PROFIT" and "ITEM LEVEL" rows
-                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
-                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'none';
-                    document.getElementById('modal-item-level-container').style.display = 'none'; // Hides ITEM LEVEL
-                } else if (item.type === 'Equipment') {
-                    chestOpenButton.style.display = 'none';
-                    equipButton.style.display = 'block';
-            
-                    // Show the "HOURLY PROFIT" and "ITEM LEVEL" rows
-                    const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
-                    if (hourlyProfitRow) hourlyProfitRow.style.display = 'flex'; // Adjust as needed
-                    document.getElementById('modal-item-level-container').style.display = 'flex'; // Adjust as needed
+                    openChest(index); // Call function to open chest
+                } else {
+                    showItemModal(item); // Show modal for Equipment items
                 }
-            
-                // Generate stars based on item level
-                const modalItemStars = document.getElementById('modal-item-stars');
-                modalItemStars.innerHTML = ''; // Clear previous stars
-                const maxStars = 5;
-                const itemLevel = Math.min(item.level, maxStars);
-                
-                for (let i = 0; i < maxStars; i++) {
-                    const star = document.createElement('img');
-                    star.classList.add('star');
-                    star.src = 'assets/currency.png'; // Set the path to your star icon
-                
-                    // Optionally, you can set a different image for empty stars if needed
-                    if (i >= itemLevel) {
-                        star.src = 'assets/currency.png'; // Set a different image for empty stars
-                    }
-                
-                    modalItemStars.appendChild(star);
-                }
-            
-                modal.style.display = 'flex'; // Show the modal
-                modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
-                modalItemImage.setAttribute('data-rarity', item.rarity); // Store the rarity of the chest
             });
-            
-             
-            
-
         } else {
             // Show a placeholder for empty slots
             itemDiv.classList.add('empty-slot');
-            // itemDiv.textContent = 'Empty Slot'; // Optional: display a text for empty slots
         }
 
         inventoryContainer.appendChild(itemDiv);
@@ -139,7 +78,107 @@ function displayInventory() {
     });
 }
 
+// Function to open a chest
+function openChest(index) {
+    const chestItem = playerData.inventory[index];
+    console.log('Opening chest at index:', index, 'Item details:', chestItem);
 
+    // Determine the correct item pool based on the chest's rarity
+    let selectedPool;
+    switch (chestItem.rarity) {
+        case 'COMMON':
+            selectedPool = commonItemPool;
+            break;
+        case 'UNCOMMON':
+            selectedPool = uncommonItemPool;
+            break;
+        case 'RARE':
+            selectedPool = rareItemPool;
+            break;
+        case 'EPIC':
+            selectedPool = epicItemPool;
+            break;
+        default:
+            console.warn('Unknown rarity:', chestItem.rarity);
+            selectedPool = commonItemPool; // Default pool in case of an error
+    }
+
+    // Generate a new item based on the chest's rarity
+    const newItem = selectedPool[Math.floor(Math.random() * selectedPool.length)]();
+
+    // Replace the chest with the new item in the same index
+    playerData.inventory[index] = newItem;
+    console.log('Replaced chest with new item:', newItem);
+
+    // Refresh the inventory display
+    displayInventory();
+}
+
+// Function to show the item modal for Equipment items
+function showItemModal(item) {
+    const modal = document.getElementById('inventory-item-modal');
+    const modalItemName = document.getElementById('modal-item-name');
+    const modalItemImage = document.getElementById('modal-item-image');
+    const modalItemDescription = document.getElementById('modal-item-description');
+    const modalItemRarity = document.getElementById('modal-item-rarity');
+    const modalItemLevelContainer = document.getElementById('modal-item-level-container');
+    const modalItemStars = document.getElementById('modal-item-stars');
+    const chestOpenButton = document.getElementById('chest-open-button');
+    const equipButton = document.getElementById('equip-button');
+    const modalItemIncome = document.getElementById('modal-item-income');
+
+    modalItemName.textContent = item.name;
+    modalItemImage.src = item.image;
+    modalItemDescription.textContent = item.description;
+    modalItemRarity.textContent = item.rarity;
+    modalItemRarity.style.color = getRarityColor(item.rarity);
+    
+    // Set income display if the item has income
+    modalItemIncome.style.display = item.income ? 'block' : 'none';
+    if (item.income) {
+        const incomeIcon = document.createElement('img');
+        incomeIcon.src = 'assets/currency.png'; // Path to your income icon
+        incomeIcon.className = 'price-icon'; // Optional: add a class for styling
+        
+        // Clear previous income content
+        modalItemIncome.innerHTML = ''; // Clear previous content
+        
+        // Append the icon and the income text
+        modalItemIncome.appendChild(incomeIcon); // Add the icon
+        modalItemIncome.appendChild(document.createTextNode(item.income)); // Add the income text
+    }
+
+    // Show/Hide rows based on item type
+    if (item.type === 'Chest') {
+        chestOpenButton.style.display = 'block';
+        equipButton.style.display = 'none';
+        modalItemLevelContainer.style.display = 'none';
+    } else if (item.type === 'Equipment') {
+        chestOpenButton.style.display = 'none';
+        equipButton.style.display = 'block';
+        modalItemLevelContainer.style.display = 'flex'; // Show level for Equipment
+    }
+
+    // Generate stars based on item level
+    modalItemStars.innerHTML = ''; // Clear previous stars
+    const maxStars = 5;
+    const itemLevel = Math.min(item.level, maxStars);
+    
+    for (let i = 0; i < maxStars; i++) {
+        const star = document.createElement('img');
+        star.classList.add('star');
+        star.src = 'assets/currency.png'; // Set the path to your star icon
+        // Optionally, you can set a different image for empty stars if needed
+        if (i >= itemLevel) {
+            star.src = 'assets/currency.png'; // Set a different image for empty stars
+        }
+        modalItemStars.appendChild(star);
+    }
+
+    modal.style.display = 'flex'; // Show the modal
+}
+
+// Function to set up modal button actions
 function setupModalButtons() {
     const chestOpenButton = document.getElementById('chest-open-button');
     const equipButton = document.getElementById('equip-button');
@@ -219,46 +258,6 @@ function setupModalButtons() {
         }
     });
 }
-
-function openAllChests() {
-    playerData.inventory.forEach((item, index) => {
-        if (item && item.type === 'Chest') {
-            console.log('Opening chest at index:', index, 'Item details:', item);
-
-            // Determine the correct item pool based on the chest's rarity
-            let selectedPool;
-            switch (item.rarity) {
-                case 'COMMON':
-                    selectedPool = commonItemPool;
-                    break;
-                case 'UNCOMMON':
-                    selectedPool = uncommonItemPool;
-                    break;
-                case 'RARE':
-                    selectedPool = rareItemPool;
-                    break;
-                case 'EPIC':
-                    selectedPool = epicItemPool;
-                    break;
-                default:
-                    console.warn('Unknown rarity:', item.rarity);
-                    selectedPool = commonItemPool; // Default pool in case of an error
-            }
-
-            // Generate a new item based on the chest's rarity
-            const newItem = selectedPool[Math.floor(Math.random() * selectedPool.length)]();
-
-            // Replace the chest with the new item in the same index
-            playerData.inventory[index] = newItem;
-            console.log('Replaced chest with new item:', newItem);
-        }
-    });
-
-    // Refresh the inventory display
-    displayInventory();
-}
-
-
 
 // Call the function to display items when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
