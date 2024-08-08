@@ -1,4 +1,5 @@
 let currentFilter = 'All'; // Default filter
+const modal = document.getElementById('inventory-item-modal');
 
 function filterInventoryItems(filter, button) {
     currentFilter = filter;
@@ -51,7 +52,7 @@ function displayInventory() {
                 if (item.type === 'Chest') {
                     openChest(index); // Call function to open chest
                 } else {
-                    showItemModal(item); // Show modal for Equipment items
+                    showItemModal(item, index); // Show modal for Equipment items and pass index
                 }
             });
         } else {
@@ -107,16 +108,13 @@ function openChest(index) {
 }
 
 // Function to show the item modal for Equipment items
-function showItemModal(item) {
+function showItemModal(item, index) {
     const modal = document.getElementById('inventory-item-modal');
     const modalItemName = document.getElementById('modal-item-name');
     const modalItemImage = document.getElementById('modal-item-image');
     const modalItemDescription = document.getElementById('modal-item-description');
     const modalItemRarity = document.getElementById('modal-item-rarity');
-    const modalItemLevelContainer = document.getElementById('modal-item-level-container');
     const modalItemStars = document.getElementById('modal-item-stars');
-    const chestOpenButton = document.getElementById('chest-open-button');
-    const equipButton = document.getElementById('equip-button');
     const modalItemIncome = document.getElementById('modal-item-income');
 
     modalItemName.textContent = item.name;
@@ -129,27 +127,16 @@ function showItemModal(item) {
     modalItemIncome.style.display = item.income ? 'block' : 'none';
     if (item.income) {
         const incomeIcon = document.createElement('img');
-        incomeIcon.src = 'assets/currency.png'; // Path to your income icon
-        incomeIcon.className = 'price-icon'; // Optional: add a class for styling
-        
-        // Clear previous income content
+        incomeIcon.src = 'assets/currency.png';
+        incomeIcon.className = 'price-icon';
         modalItemIncome.innerHTML = ''; // Clear previous content
-        
-        // Append the icon and the income text
-        modalItemIncome.appendChild(incomeIcon); // Add the icon
-        modalItemIncome.appendChild(document.createTextNode(item.income)); // Add the income text
+        modalItemIncome.appendChild(incomeIcon);
+        modalItemIncome.appendChild(document.createTextNode(item.income));
     }
 
-    // // Show/Hide rows based on item type
-    // if (item.type === 'Chest') {
-    //     chestOpenButton.style.display = 'block';
-    //     equipButton.style.display = 'none';
-    //     modalItemLevelContainer.style.display = 'none';
-    // } else if (item.type === 'Equipment') {
-    //     chestOpenButton.style.display = 'none';
-    //     equipButton.style.display = 'block';
-    //     modalItemLevelContainer.style.display = 'flex'; // Show level for Equipment
-    // }
+    // Set data-slot and data-index attributes to the item for equipping
+    modalItemImage.setAttribute('data-slot', item.slot); // Update with actual item slot
+    modalItemImage.setAttribute('data-index', index); // Store the inventory index
 
     // Generate stars based on item level
     modalItemStars.innerHTML = ''; // Clear previous stars
@@ -159,26 +146,91 @@ function showItemModal(item) {
     for (let i = 0; i < itemLevel; i++) {
         const star = document.createElement('img');
         star.classList.add('star');
-        star.src = 'assets/item_star.png'; // Set the path for filled stars
+        star.src = 'assets/item_star.png';
         modalItemStars.appendChild(star);
     }
 
     modal.style.display = 'flex'; // Show the modal
 }
 
-// Function to set up modal button actions
 function setupModalButtons() {
     const equipButton = document.getElementById('equip-button');
-    
-    // Add click event to the chest open button
 
-
-    // Add click event to the equip button
     equipButton.addEventListener('click', () => {
+        const modalItemImage = document.getElementById('modal-item-image');
+        const slotKey = modalItemImage.getAttribute('data-slot'); // Get the item slot from the data attribute
+        const inventoryIndex = parseInt(modalItemImage.getAttribute('data-index')); // Get the inventory index
 
-        console.log('ss')
+        console.log(slotKey, inventoryIndex); // Log to verify
+
+        // Map the slotKey to the actual playerEquipped keys
+        const slotMap = {
+            'Head': 'Head',
+            'Top': 'Top',
+            'Bottom': 'Bottom',
+            'Hand': 'Hand',
+            'Feet': 'Feet'
+        };
+
+        // Check if there is already an item equipped in that slot
+        const currentEquippedItem = playerData.playerEquipped[slotMap[slotKey]];
+
+        if (currentEquippedItem) {
+            console.log(`You already have an item equipped in the ${slotKey} slot:`, currentEquippedItem);
+            const confirmReplace = confirm(`You already have an item equipped in the ${slotKey} slot. Do you want to replace it?`);
+            if (!confirmReplace) {
+                return; // Exit if user does not want to replace
+            }
+
+            // Remove the current equipped item from its slot and add it to the next available slot in the inventory
+            addUnequippedItemToInventory(currentEquippedItem); // Use this function to add the unequipped item to inventory
+            playerData.playerEquipped[slotMap[slotKey]] = null; // Clear the slot in the equipped items
+        }
+
+        // Equip the new item
+        const itemToEquip = playerData.inventory[inventoryIndex]; // Get the item to equip using the index
+        playerData.playerEquipped[slotMap[slotKey]] = itemToEquip; // Equip the item
+
+        // Remove the item from inventory after equipping
+        playerData.inventory[inventoryIndex] = null; // Clear the inventory slot of the equipped item
+
+        // Shift items in inventory to fill the gap left by the equipped item
+        shiftInventoryItems(inventoryIndex);
+        displayInventory();
+        // Update the UI to reflect the equipped item
+        // updateEquipmentUI(); // Uncomment and implement this if needed
+
+        // Log the action
+        console.log(`Equipped item in the ${slotKey} slot:`, itemToEquip);
+        console.log(playerData.playerEquipped);
+        modal.style.display = 'none'; // Hide the modal
 
     });
+}
+
+// Function to add the unequipped item to the next available slot in the inventory
+function addUnequippedItemToInventory(item) {
+    for (let i = 0; i < playerData.inventory.length; i++) {
+        if (playerData.inventory[i] === null) {
+            playerData.inventory[i] = item;
+            return;
+        }
+    }
+    // If no null slots, push item to the end of the inventory
+    playerData.inventory.push(item);
+}
+
+// Function to shift items in the inventory
+function shiftInventoryItems(index) {
+    if (index < playerData.inventory.length - 1) {
+        // Remove the item at the index and fill the gap
+        for (let i = index; i < playerData.inventory.length - 1; i++) {
+            playerData.inventory[i] = playerData.inventory[i + 1];
+        }
+    }
+
+    // Set the last item to null (or you could use a placeholder)
+    playerData.inventory[playerData.inventory.length - 1] = null; // Clear the last slot
 }
 
 // Call the function to display items when the DOM is fully loaded
