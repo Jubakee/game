@@ -84,7 +84,7 @@ function displayInventory() {
                     // Hide the "HOURLY PROFIT" and "ITEM LEVEL" rows
                     const hourlyProfitRow = Array.from(document.querySelectorAll('.detail-item')).find(item => item.textContent.includes('HOURLY PROFIT'));
                     if (hourlyProfitRow) hourlyProfitRow.style.display = 'none';
-                    document.getElementById('modal-item-level-container').style.display = 'none'; // Hides ITEM LEVEL
+                    // document.getElementById('modal-item-level-container').style.display = 'none'; // Hides ITEM LEVEL
                 } else if (item.type === 'Equipment') {
                     chestOpenButton.style.display = 'none';
                     equipButton.style.display = 'block';
