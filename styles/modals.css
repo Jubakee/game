@@ -245,9 +245,9 @@ h2 {
     width: 24px;
     height: 24px;
     margin: 0 2px;
-    background-image: url('/assets/item_star.png'); /* Replace with the path to your star icon */
-    background-size: cover;
+    /* Remove background-image property */
 }
+
 
 .star.empty {
     opacity: 0.3;

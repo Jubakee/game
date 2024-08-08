@@ -80,17 +80,23 @@ function displayInventory() {
          
             
                 // Generate stars based on item level
-                modalItemStars.innerHTML = ''; // Clear previous stars
-                const maxStars = 5;
-                const itemLevel = Math.min(item.level, maxStars);
-                for (let i = 0; i < maxStars; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
-                    if (i >= itemLevel) {
-                        star.classList.add('empty');
-                    }
-                    modalItemStars.appendChild(star);
-                }
+                const modalItemStars = document.getElementById('modal-item-stars');
+modalItemStars.innerHTML = ''; // Clear previous stars
+const maxStars = 5;
+const itemLevel = Math.min(item.level, maxStars);
+
+for (let i = 0; i < maxStars; i++) {
+    const star = document.createElement('img');
+    star.classList.add('star');
+    star.src = '/assets/item_star.png'; // Set the path to your star icon
+
+    // Optionally, you can set a different image for empty stars if needed
+    if (i >= itemLevel) {
+        star.src = '/assets/item_star.png'; // Set a different image for empty stars
+    }
+
+    modalItemStars.appendChild(star);
+}
             
                 modal.style.display = 'flex'; // Show the modal
                 modalItemImage.setAttribute('data-slot', index); // Store the index of the item to be removed
