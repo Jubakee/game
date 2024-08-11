@@ -106,3 +106,25 @@
 .inventory-filter-button.active, .inventory-filter-button:hover {
     background-color: #1e1e1e; /* Highlight color */
 }
+
+.item-name.COMMON {
+    color: #b0b0b0; /* Color for COMMON items */
+}
+
+.item-name.UNCOMMON {
+    color: #4caf50; /* Color for UNCOMMON items */
+}
+
+.item-name.RARE {
+    color: #FFD700; /* Color for RARE items */
+}
+
+.item-name.EPIC {
+    color: #e040fb; /* Color for EPIC items */
+}
+
+/* Placeholder for empty slot */
+.empty-slot-placeholder {
+    color: #444; /* Placeholder text color */
+    text-align: center;
+}

@@ -22,16 +22,24 @@
 }
 
 #equipment-container img {
-    width: 30%;
-    object-fit: cover;
-    padding: 20px;
+    padding: 10px; /* Add padding specific to equipped item images */
 
 }
+
+#equipment-container .equipped-item-img {
+    width: 30%; /* Specific styles for equipped item images */
+    object-fit: cover; /* Maintain aspect ratio */
+    padding: 20px; /* Add padding specific to equipped item images */
+}
+
 
 #equipment-container .item-info {
     text-align: center;
 }
 
+.item-stars{
+    margin-top: -20px;
+}
 /* #equipment-container .item-info h3 {
     font-size: 16px;
     margin-bottom: 4px;
@@ -114,34 +122,34 @@ font-size: 16px;
 }
 
 .equipped-item.COMMON {
-    border-color: gray; /* Common rarity color */
+    border-color: #b0b0b0; /* Common rarity color */
 }
 
 .equipped-item.UNCOMMON {
-    border-color: green; /* Uncommon rarity color */
+    border-color: #4caf50; /* Uncommon rarity color */
 }
 
 .equipped-item.RARE {
-    border-color: blue; /* Rare rarity color */
+    border-color: #FFD700; /* Rare rarity color */
 }
 
 .equipped-item.EPIC {
-    border-color: purple; /* Epic rarity color */
+    border-color: #e040fb; /* Epic rarity color */
 }
 
 
 .income-container {
     display: flex; /* Use flexbox to align items in a row */
     align-items: center; /* Center items vertically */
-    margin-bottom: -30px;
+    margin-bottom: -20px;
 }
 
 
 .income-container img {
     width: 32px; /* Adjust width as needed */
     height: 32px; /* Adjust height as needed */
-    margin-right: -10px;
-    margin-left: -10px;
+    margin-right: -5px;
+    margin-left: -5px;
 }
 
 #stats-container {

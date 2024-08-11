@@ -126,7 +126,16 @@ function showItemModal(item, index) {
     const modalItemIncome = document.getElementById('modal-item-income');
     const equipButton = document.getElementById('equip-button');
 
-    modalItemName.textContent = item.name;
+    // Clear previous content
+    modalItemName.innerHTML = ''; // Clear previous content
+
+    // Create a span for the item name and set its class based on rarity
+    const itemNameSpan = document.createElement('span');
+    itemNameSpan.textContent = item.name;
+    itemNameSpan.classList.add('item-name', item.rarity); // Add rarity class
+
+    modalItemName.appendChild(itemNameSpan); // Append the item name span to the modal
+
     modalItemImage.src = item.image;
     modalItemDescription.textContent = item.description;
     modalItemRarity.textContent = item.rarity;
@@ -167,6 +176,7 @@ function showItemModal(item, index) {
 
     modal.style.display = 'flex'; // Show the modal
 }
+
 
 // Function to setup the modal buttons
 function setupModalButtons() {
