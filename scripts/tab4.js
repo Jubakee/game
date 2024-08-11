@@ -24,34 +24,36 @@ function displayInventory() {
     // Clear previous items
     inventoryContainer.innerHTML = '';
 
-    // Render all slots in the inventory
+    // Render items based on the current filter
     playerData.inventory.forEach((item, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'inventory-item';
         itemDiv.setAttribute('data-slot', index); // Add data-slot attribute for slot index
 
-        if (item && item.image) {
-            const itemImg = document.createElement('img');
-            itemImg.src = item.image;
-            itemImg.alt = item.name;
+        if (item) {
+            // If the item exists, render it
+            if (item.image) {
+                const itemImg = document.createElement('img');
+                itemImg.src = item.image;
+                itemImg.alt = item.name;
 
-            // Check if the item is currently equipped
-            const isEquipped = Object.values(playerData.playerEquipped).some(equippedItem => equippedItem && equippedItem.id === item.id);
-
-            if (isEquipped) {
-                itemDiv.classList.add('equipped'); // Add class to indicate it's equipped
-            }
-
-            itemDiv.appendChild(itemImg);
-
-            // Add click event listener to handle item interactions
-            itemDiv.addEventListener('click', () => {
-                if (item.type === 'Chest') {
-                    openChest(index); // Call function to open chest
-                } else {
-                    showItemModal(item, index); // Show modal for Equipment items and pass index
+                // Check if the item is currently equipped
+                const isEquipped = Object.values(playerData.playerEquipped).some(equippedItem => equippedItem && equippedItem.id === item.id);
+                if (isEquipped) {
+                    itemDiv.classList.add('equipped'); // Add class to indicate it's equipped
                 }
-            });
+
+                itemDiv.appendChild(itemImg);
+
+                // Add click event listener to handle item interactions
+                itemDiv.addEventListener('click', () => {
+                    if (item.type === 'Chest') {
+                        openChest(index); // Call function to open chest
+                    } else {
+                        showItemModal(item, index); // Show modal for Equipment items and pass index
+                    }
+                });
+            }
         } else {
             // Show a placeholder for empty slots
             itemDiv.classList.add('empty-slot');
@@ -60,13 +62,22 @@ function displayInventory() {
         inventoryContainer.appendChild(itemDiv);
     });
 
-
     // Add event listener to close the modal when clicking outside the modal content
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none'; // Hide the modal
         }
     });
+}
+
+
+function shouldDisplayItem(item) {
+    if (!item) return false; // Skip if there's no item
+
+    if (currentFilter === 'All') return true; // Show all items
+
+    // Check if the item's rarity matches the current filter
+    return item.rarity === currentFilter;
 }
 
 // Function to open a chest
@@ -107,7 +118,6 @@ function openChest(index) {
 
 // Function to show the item modal for Equipment items
 function showItemModal(item, index) {
-    const modal = document.getElementById('inventory-item-modal');
     const modalItemName = document.getElementById('modal-item-name');
     const modalItemImage = document.getElementById('modal-item-image');
     const modalItemDescription = document.getElementById('modal-item-description');
@@ -130,12 +140,12 @@ function showItemModal(item, index) {
         incomeIcon.className = 'price-icon';
         modalItemIncome.innerHTML = ''; // Clear previous content
         modalItemIncome.appendChild(incomeIcon);
-        modalItemIncome.appendChild(document.createTextNode(item.income));
+        modalItemIncome.appendChild(document.createTextNode(`+${item.income}`)); // Display income as positive value
     }
 
     // Set data-slot and data-index attributes to the item for equipping or unequipping
-    modalItemImage.setAttribute('data-slot', item.slot); // Update with actual item slot
-    modalItemImage.setAttribute('data-index', index); // Store the inventory index
+    modalItemImage.setAttribute('data-slot', item.slot);
+    modalItemImage.setAttribute('data-index', index);
 
     // Generate stars based on item level
     modalItemStars.innerHTML = ''; // Clear previous stars
@@ -153,22 +163,19 @@ function showItemModal(item, index) {
     const isEquipped = Object.values(playerData.playerEquipped).some(equippedItem => equippedItem && equippedItem.id === item.id);
 
     // Update the button text and functionality
-    if (isEquipped) {
-        equipButton.textContent = 'Unequip'; // Change button text to "Unequip"
-    } else {
-        equipButton.textContent = 'Equip'; // Default to "Equip"
-    }
+    equipButton.textContent = isEquipped ? 'Unequip' : 'Equip';
 
     modal.style.display = 'flex'; // Show the modal
 }
 
+// Function to setup the modal buttons
 function setupModalButtons() {
     const equipButton = document.getElementById('equip-button');
 
     equipButton.addEventListener('click', () => {
         const modalItemImage = document.getElementById('modal-item-image');
-        const slotKey = modalItemImage.getAttribute('data-slot'); // Get the item slot from the data attribute
-        const inventoryIndex = parseInt(modalItemImage.getAttribute('data-index')); // Get the inventory index
+        const slotKey = modalItemImage.getAttribute('data-slot');
+        const inventoryIndex = parseInt(modalItemImage.getAttribute('data-index'));
 
         const slotMap = {
             'Head': 'Head',
@@ -179,35 +186,40 @@ function setupModalButtons() {
         };
 
         const equippedItem = playerData.playerEquipped[slotMap[slotKey]];
+        const itemToEquip = playerData.inventory[inventoryIndex];
 
         if (equipButton.textContent === 'Unequip') {
             // Unequip the item
-            if (equippedItem && equippedItem.id === playerData.inventory[inventoryIndex].id) {
+            if (equippedItem && equippedItem.id === itemToEquip.id) {
                 // Remove the item from the equipped slot
                 playerData.playerEquipped[slotMap[slotKey]] = null;
+                playerData.playerIncome -= itemToEquip.income; // Subtract income from player data
 
-                // No need to add back to inventory, just update the UI
+                // Add the unequipped item back to the inventory
+                addUnequippedItemToInventory(itemToEquip);
+
+                // Update the UI
                 displayInventory();
                 modal.style.display = 'none'; // Hide the modal
                 console.log(`Unequipped item from the ${slotKey} slot:`, equippedItem);
             }
         } else {
             // Equip the item
-            const itemToEquip = playerData.inventory[inventoryIndex];
-
-            // Check if there's already an item equipped in the slot
             if (equippedItem) {
                 const confirmReplace = confirm(`You already have an item equipped in the ${slotKey} slot. Do you want to replace it?`);
-                if (!confirmReplace) {
-                    return; // Exit if the user does not want to replace
-                }
+                if (!confirmReplace) return; // Exit if the user does not want to replace
 
-                // Just unequip the currently equipped item without adding it back to inventory
+                // Just unequip the currently equipped item
                 playerData.playerEquipped[slotMap[slotKey]] = null;
+                playerData.playerIncome -= equippedItem.income; // Subtract income from player data
+
+                // Add the unequipped item back to the inventory
+                addUnequippedItemToInventory(equippedItem);
             }
 
             // Equip the new item
             playerData.playerEquipped[slotMap[slotKey]] = itemToEquip;
+            playerData.playerIncome += itemToEquip.income; // Add income to player data
 
             // Update the UI to reflect the changes
             displayInventory();
@@ -220,18 +232,28 @@ function setupModalButtons() {
     });
 }
 
-
 // Function to add the unequipped item to the next available slot in the inventory
 function addUnequippedItemToInventory(item) {
+    // Check if the item already exists in the inventory
+    const existingIndex = playerData.inventory.findIndex(existingItem => existingItem && existingItem.id === item.id);
+    
+    if (existingIndex !== -1) {
+        console.warn(`Item already exists in inventory at index ${existingIndex}:`, item);
+        return; // Don't add the item if it already exists
+    }
+
+    // Find the next available slot
     for (let i = 0; i < playerData.inventory.length; i++) {
-        if (playerData.inventory[i] === null) {
-            playerData.inventory[i] = item;
+        if (!playerData.inventory[i]) {
+            playerData.inventory[i] = item; // Add item to the first empty slot
             return;
         }
     }
+
     // If no null slots, push item to the end of the inventory
     playerData.inventory.push(item);
 }
+
 
 // Function to shift items in the inventory
 function shiftInventoryItems(index) {
@@ -242,7 +264,7 @@ function shiftInventoryItems(index) {
         }
     }
 
-    // Set the last item to null (or you could use a placeholder)
+    // Set the last item to null
     playerData.inventory[playerData.inventory.length - 1] = null; // Clear the last slot
 }
 

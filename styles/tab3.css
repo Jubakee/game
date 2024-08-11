@@ -14,11 +14,11 @@
 
 /* Individual slots */
 #equipment-container .equipped-item {
-    border: 1px solid #999; /* Dotted border for empty slots */
     border-radius: 5px;
     text-align: center;
     background-color: #1e1e1e; /* Dark background */
-    padding: 20px;
+    padding: 30px;
+
 }
 
 #equipment-container img {
@@ -109,10 +109,31 @@ font-size: 16px;
     text-align: center;
 }
 
+.equipped-item {
+    border: 2px solid transparent; /* Default border color */
+}
+
+.equipped-item.COMMON {
+    border-color: gray; /* Common rarity color */
+}
+
+.equipped-item.UNCOMMON {
+    border-color: green; /* Uncommon rarity color */
+}
+
+.equipped-item.RARE {
+    border-color: blue; /* Rare rarity color */
+}
+
+.equipped-item.EPIC {
+    border-color: purple; /* Epic rarity color */
+}
+
 
 .income-container {
     display: flex; /* Use flexbox to align items in a row */
     align-items: center; /* Center items vertically */
+    margin-bottom: -30px;
 }
 
 
@@ -121,5 +142,25 @@ font-size: 16px;
     height: 32px; /* Adjust height as needed */
     margin-right: -10px;
     margin-left: -10px;
+}
+
+#stats-container {
+    margin-bottom: 20px; /* Space between stats and equipment */
+    text-align: center; /* Center align the stats */
+    color: #fff; /* Text color */
+}
+
+#stats-container h2 {
+    font-size: 12px; /* Adjust size as needed */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center align items vertically */
+    justify-content: center; /* Center align items horizontally */
+}
+
+.currency-icon {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    margin-left: 5px; /* Space between profit text and icon */
+    margin-right: 5px; /* Space between profit text and icon */
 }
 
