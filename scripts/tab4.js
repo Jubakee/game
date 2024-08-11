@@ -16,8 +16,6 @@ function filterInventoryItems(filter, button) {
 
 function displayInventory() {
     const inventoryContainer = document.getElementById('inventory-container');
-    const modal = document.getElementById('inventory-item-modal');
-
     if (!inventoryContainer) {
         console.error('Inventory container not found');
         return;
@@ -26,16 +24,8 @@ function displayInventory() {
     // Clear previous items
     inventoryContainer.innerHTML = '';
 
-    // Filter inventory items based on the current filter
-    const filteredItems = playerData.inventory.filter(item => {
-        if (currentFilter === 'All') return true;
-        if (currentFilter === 'Chest' && item && item.type === 'Chest') return true;
-        if (currentFilter === 'Equipment' && item && item.type === 'Equipment') return true;
-        return false;
-    });
-
     // Render all slots in the inventory
-    filteredItems.forEach((item, index) => {
+    playerData.inventory.forEach((item, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'inventory-item';
         itemDiv.setAttribute('data-slot', index); // Add data-slot attribute for slot index
@@ -44,6 +34,13 @@ function displayInventory() {
             const itemImg = document.createElement('img');
             itemImg.src = item.image;
             itemImg.alt = item.name;
+
+            // Check if the item is currently equipped
+            const isEquipped = Object.values(playerData.playerEquipped).some(equippedItem => equippedItem && equippedItem.id === item.id);
+
+            if (isEquipped) {
+                itemDiv.classList.add('equipped'); // Add class to indicate it's equipped
+            }
 
             itemDiv.appendChild(itemImg);
 
@@ -62,6 +59,7 @@ function displayInventory() {
 
         inventoryContainer.appendChild(itemDiv);
     });
+
 
     // Add event listener to close the modal when clicking outside the modal content
     modal.addEventListener('click', (e) => {
@@ -116,6 +114,7 @@ function showItemModal(item, index) {
     const modalItemRarity = document.getElementById('modal-item-rarity');
     const modalItemStars = document.getElementById('modal-item-stars');
     const modalItemIncome = document.getElementById('modal-item-income');
+    const equipButton = document.getElementById('equip-button');
 
     modalItemName.textContent = item.name;
     modalItemImage.src = item.image;
@@ -134,7 +133,7 @@ function showItemModal(item, index) {
         modalItemIncome.appendChild(document.createTextNode(item.income));
     }
 
-    // Set data-slot and data-index attributes to the item for equipping
+    // Set data-slot and data-index attributes to the item for equipping or unequipping
     modalItemImage.setAttribute('data-slot', item.slot); // Update with actual item slot
     modalItemImage.setAttribute('data-index', index); // Store the inventory index
 
@@ -150,6 +149,16 @@ function showItemModal(item, index) {
         modalItemStars.appendChild(star);
     }
 
+    // Determine if the item is equipped
+    const isEquipped = Object.values(playerData.playerEquipped).some(equippedItem => equippedItem && equippedItem.id === item.id);
+
+    // Update the button text and functionality
+    if (isEquipped) {
+        equipButton.textContent = 'Unequip'; // Change button text to "Unequip"
+    } else {
+        equipButton.textContent = 'Equip'; // Default to "Equip"
+    }
+
     modal.style.display = 'flex'; // Show the modal
 }
 
@@ -161,52 +170,56 @@ function setupModalButtons() {
         const slotKey = modalItemImage.getAttribute('data-slot'); // Get the item slot from the data attribute
         const inventoryIndex = parseInt(modalItemImage.getAttribute('data-index')); // Get the inventory index
 
-        console.log(slotKey, inventoryIndex); // Log to verify
-
-        // Map the slotKey to the actual playerEquipped keys
         const slotMap = {
             'Head': 'Head',
             'Top': 'Top',
             'Bottom': 'Bottom',
-            'Hand': 'Hand',
+            'Hands': 'Hands',
             'Feet': 'Feet'
         };
 
-        // Check if there is already an item equipped in that slot
-        const currentEquippedItem = playerData.playerEquipped[slotMap[slotKey]];
+        const equippedItem = playerData.playerEquipped[slotMap[slotKey]];
 
-        if (currentEquippedItem) {
-            console.log(`You already have an item equipped in the ${slotKey} slot:`, currentEquippedItem);
-            const confirmReplace = confirm(`You already have an item equipped in the ${slotKey} slot. Do you want to replace it?`);
-            if (!confirmReplace) {
-                return; // Exit if user does not want to replace
+        if (equipButton.textContent === 'Unequip') {
+            // Unequip the item
+            if (equippedItem && equippedItem.id === playerData.inventory[inventoryIndex].id) {
+                // Remove the item from the equipped slot
+                playerData.playerEquipped[slotMap[slotKey]] = null;
+
+                // No need to add back to inventory, just update the UI
+                displayInventory();
+                modal.style.display = 'none'; // Hide the modal
+                console.log(`Unequipped item from the ${slotKey} slot:`, equippedItem);
+            }
+        } else {
+            // Equip the item
+            const itemToEquip = playerData.inventory[inventoryIndex];
+
+            // Check if there's already an item equipped in the slot
+            if (equippedItem) {
+                const confirmReplace = confirm(`You already have an item equipped in the ${slotKey} slot. Do you want to replace it?`);
+                if (!confirmReplace) {
+                    return; // Exit if the user does not want to replace
+                }
+
+                // Just unequip the currently equipped item without adding it back to inventory
+                playerData.playerEquipped[slotMap[slotKey]] = null;
             }
 
-            // Remove the current equipped item from its slot and add it to the next available slot in the inventory
-            addUnequippedItemToInventory(currentEquippedItem); // Use this function to add the unequipped item to inventory
-            playerData.playerEquipped[slotMap[slotKey]] = null; // Clear the slot in the equipped items
+            // Equip the new item
+            playerData.playerEquipped[slotMap[slotKey]] = itemToEquip;
+
+            // Update the UI to reflect the changes
+            displayInventory();
+            modal.style.display = 'none';
+            console.log(`Equipped item in the ${slotKey} slot:`, itemToEquip);
         }
 
-        // Equip the new item
-        const itemToEquip = playerData.inventory[inventoryIndex]; // Get the item to equip using the index
-        playerData.playerEquipped[slotMap[slotKey]] = itemToEquip; // Equip the item
-
-        // Remove the item from inventory after equipping
-        playerData.inventory[inventoryIndex] = null; // Clear the inventory slot of the equipped item
-
-        // Shift items in inventory to fill the gap left by the equipped item
-        shiftInventoryItems(inventoryIndex);
-        displayInventory();
-        // Update the UI to reflect the equipped item
-        // updateEquipmentUI(); // Uncomment and implement this if needed
-
-        // Log the action
-        console.log(`Equipped item in the ${slotKey} slot:`, itemToEquip);
-        console.log(playerData.playerEquipped);
-        modal.style.display = 'none'; // Hide the modal
-
+        savePlayerData();
+        displayEquippedItems();
     });
 }
+
 
 // Function to add the unequipped item to the next available slot in the inventory
 function addUnequippedItemToInventory(item) {

@@ -1,0 +1,125 @@
+/* Container for the entire character screen */
+#equipment-container {
+    display: grid;
+    grid-template-areas: 
+        "head"
+        "top"
+        "hand"
+        "bottom"
+        "feet";
+    gap: 20px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Individual slots */
+#equipment-container .equipped-item {
+    border: 1px solid #999; /* Dotted border for empty slots */
+    border-radius: 5px;
+    text-align: center;
+    background-color: #1e1e1e; /* Dark background */
+    padding: 20px;
+}
+
+#equipment-container img {
+    width: 30%;
+    object-fit: cover;
+    padding: 20px;
+
+}
+
+#equipment-container .item-info {
+    text-align: center;
+}
+
+/* #equipment-container .item-info h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: #fff; /* Color to indicate item rarity 
+} */
+
+
+
+/* Specific grid area assignments for each slot */
+#equipment-container .equipped-item[data-slot="Head"] {
+    grid-area: head;
+}
+
+#equipment-container .equipped-item[data-slot="Top"] {
+    grid-area: top;
+}
+
+#equipment-container .equipped-item[data-slot="Hand"] {
+    grid-area: hand;
+}
+
+#equipment-container .equipped-item[data-slot="Bottom"] {
+    grid-area: bottom;
+}
+
+#equipment-container .equipped-item[data-slot="Feet"] {
+    grid-area: feet;
+}
+
+/* Style for the empty slot placeholders */
+.empty-slot-placeholder p {
+    color: #666;
+    font-style: italic;
+    margin: 0;
+}
+
+.item-name h3{
+font-size: 16px;
+}
+
+#equipment-container .item-info p {
+    font-size: 11px;
+    color: #fff;
+}
+
+.income-text {
+    font-size: 18px; /* Adjust size as needed */
+    color: #fff; /* Keep the color consistent */
+}
+
+/* To ensure that the income text is not affected by the general item info styles */
+#equipment-container .item-info .income-text {
+    font-size: 12px; /* Set your desired size */
+}
+
+.equipped-item.COMMON .item-name h3 {
+    color: #b0b0b0; /* Color for COMMON items */
+}
+
+.equipped-item.UNCOMMON .item-name h3 {
+    color: #4caf50; /* Color for UNCOMMON items */
+}
+
+.equipped-item.RARE .item-name h3 {
+    color: #FFD700; /* Color for RARE items */
+}
+
+.equipped-item.EPIC .item-name h3 {
+    color: #e040fb; /* Color for EPIC items */
+}
+
+/* Placeholder for empty slot */
+.empty-slot-placeholder {
+    color: #444; /* Placeholder text color */
+    text-align: center;
+}
+
+
+.income-container {
+    display: flex; /* Use flexbox to align items in a row */
+    align-items: center; /* Center items vertically */
+}
+
+
+.income-container img {
+    width: 32px; /* Adjust width as needed */
+    height: 32px; /* Adjust height as needed */
+    margin-right: -10px;
+    margin-left: -10px;
+}
+

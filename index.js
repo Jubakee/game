@@ -11,7 +11,7 @@ const INITIAL_PLAYER_DATA = {
     lastEnergyUpdate: Date.now(),
     playerLastLvlUpdate: Date.now(),
     inventory: Array(30).fill(null),
-    playerEquipped: { Head: null, Top: null, Bottom: null, Hand: null, Feet: null },
+    playerEquipped: { Head: null, Top: null, Bottom: null, Hands: null, Feet: null },
     playerMaterials: Array(6).fill(null)
 };
 
@@ -158,6 +158,8 @@ function showAccumulatedCoinsPopup(earnedCoins) {
     messageContainer.style.padding = '10px'
     // Show the modal
     modal.style.display = 'block';
+
+    playerData.playerBalance += earnedCoins;
 
     // Remove the modal after 20 seconds
     setTimeout(() => {

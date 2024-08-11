@@ -20,18 +20,18 @@ function createItem(name, image, description, rarity, type, slot, level, income)
 }
 
 const commonItemPool = [
-    () => createItem('Sandra\'s Helmet', './items/head1.png', 'Stylish helmet offering great protection in battle.', 'COMMON', 'Equipment', 'Head',1,10),
+    () => createItem('Sandra\'s Helmet', './items/head1.png', 'Stylish helmet offering great protection in battle', 'COMMON', 'Equipment', 'Head',1,10),
 ];
 
 const uncommonItemPool = [
-    () => createItem('Sandra\'s Sweater', './items/top1.png', 'Cozy sweater for warmth and style.', 'UNCOMMON', 'Equipment', 'Top',1,15),
+    () => createItem('Sandra\'s Sweater', './items/top1.png', 'Cozy sweater for warmth and style', 'UNCOMMON', 'Equipment', 'Top',1,15),
 ];
 
 const rareItemPool = [
-    () => createItem('Sandra\'s Pants', './items/bottom1.png', 'Comfortable pants for everyday wear.', 'RARE', 'Equipment', 'Bottom',1,20),
-    () => createItem('Sandra\'s Gloves', './items/hands1.png', 'Stylish gloves for warmth and grip.', 'RARE', 'Equipment', 'Hands',1,20),
+    () => createItem('Sandra\'s Pants', './items/bottom1.png', 'Comfortable pants for everyday wear', 'RARE', 'Equipment', 'Bottom',1,20),
+    () => createItem('Sandra\'s Gloves', './items/hands1.png', 'Stylish gloves for warmth and grip', 'RARE', 'Equipment', 'Hands',1,20),
 ];
 
 const epicItemPool = [
-    () => createItem('Sandra\'s Shoes', './items/feet1.png', 'Comfortable shoes for everyday wear.', 'EPIC', 'Equipment', 'Feet',1,50),
+    () => createItem('Sandra\'s Shoes', './items/feet1.png', 'Comfortable shoes for everyday wear', 'EPIC', 'Equipment', 'Feet',1,50),
 ];

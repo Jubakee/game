@@ -39,6 +39,25 @@
     padding: 0; /* No padding for empty slots */
 }
 
+.inventory-item.equipped {
+    opacity: 0.5;
+    border-color: #ccc; /* Optional: change border color for equipped items */
+}
+
+/* Optionally add an overlay to clearly indicate equipped status */
+.inventory-item.equipped::after {
+    content: 'Equipped';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffcc00; /* Text color to indicate equipped status */
+    font-size: 12px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
 /* Media queries for responsiveness */
 @media (max-width: 600px) {
     .inventory-container {
