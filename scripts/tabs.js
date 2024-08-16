@@ -37,5 +37,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialize by showing the first tab
     hideAllTabs();
-    showTab("tab3"); // Show the default tab
+    showTab("tab1"); // Show the default tab
 });
