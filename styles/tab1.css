@@ -83,8 +83,8 @@
 
 .circular-timer {
     position: relative;
-    width: 60px; /* Adjust width to fit your design */
-    height: 60px; /* Adjust height to fit your design */
+    width: 70px; /* Adjust width to fit your design */
+    height: 70px; /* Adjust height to fit your design */
 }
 
 .circular-icon {
@@ -98,7 +98,7 @@
 }
 
 .circle-progress {
-    stroke: #ff4500; /* Orange color for the progress */
+    stroke: #FFD700; /* Orange color for the progress */
     stroke-width: 10; /* Thickness of the progress */
     transition: stroke-dashoffset 1s linear; /* Smooth transition for the stroke offset */
     transform: rotate(-90deg); /* Rotate to start at the top */
@@ -106,7 +106,7 @@
 }
 
 .timer-text {
-    font-size: 12px; /* Adjust size as needed */
+    font-size: 11px; /* Adjust size as needed */
     color: #fff; /* White color for timer text */
     position: absolute;
     top: 50%; /* Center vertically */

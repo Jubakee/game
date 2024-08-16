@@ -1,4 +1,4 @@
-function startTimer(duration, display, icon) {
+function startTimer(duration, display, icon, button) {
     let timer = duration;
     const startTime = Date.now();
     const endTime = startTime + (duration * 1000);
@@ -6,13 +6,16 @@ function startTimer(duration, display, icon) {
     const radius = 45; // Radius of the circle
     const circumference = 2 * Math.PI * radius;
 
-    const circleProgress = icon.querySelector('.circle-progress');
     // Set the initial stroke dash array to the full circumference
+    const circleProgress = icon.querySelector('.circle-progress');
     circleProgress.style.strokeDasharray = circumference;
-    circleProgress.style.strokeDashoffset = circumference; // Ensure it starts as a full circle
+    circleProgress.style.strokeDashoffset = circumference;
 
-    // Ensuring the initial state is applied before starting the interval
+    // Display initial "Ready" state
+    display.textContent = 'Ready';
     updateCircularProgress(circleProgress, 1, circumference); // Set to full circle initially
+
+    button.disabled = true; // Disable the button to prevent multiple clicks
 
     const interval = setInterval(() => {
         const now = Date.now();
@@ -30,10 +33,20 @@ function startTimer(duration, display, icon) {
         if (timer <= 0) {
             clearInterval(interval);
             display.textContent = '00:00';
+            console.log('Finish');
             updateCircularProgress(circleProgress, 0, circumference); // Ensure it completes the progress
+            
+            // Reset after finishing
+            setTimeout(() => {
+                display.textContent = 'Ready';
+                circleProgress.style.strokeDashoffset = circumference; // Reset progress circle
+                updateCircularProgress(circleProgress, 1, circumference); // Set to full circle initially
+                button.disabled = false; // Re-enable the button
+            }, 1000); // Add a delay for visibility
         }
     }, 1000);
 }
+
 
 function updateCircularProgress(circle, percentage, circumference) {
     const offset = circumference * (1 - percentage); // Calculate the stroke offset
@@ -53,7 +66,7 @@ const items = [
         title: 'Item 1',
         description: 'Description for item 1.',
         cost: 100,
-        timerDuration: 60 // Duration in seconds (e.g., 10 minutes)
+        timerDuration: 6 // Duration in seconds (e.g., 10 minutes)
     },
     {
         imageUrl: 'assets/dungeon_2.jpg',
@@ -79,15 +92,15 @@ function createItemElement(item) {
                 <span class="cost-text">${item.cost}</span>
             </div>
             <div class="item-timer">
-            <div class="circular-timer">
-                <svg class="circular-icon" viewBox="0 0 100 100">
-                    <circle class="circle-bg" cx="50" cy="50" r="45" stroke="#ccc" stroke-width="10" fill="none"></circle>
-                    <circle class="circle-progress" cx="50" cy="50" r="45" stroke="#ff4500" stroke-width="10" fill="none"></circle>
-                </svg>
-                <span class="timer-text"> ${formatTime(item.timerDuration)}</span>
+                <div class="circular-timer">
+                    <svg class="circular-icon" viewBox="0 0 100 100">
+                        <circle class="circle-bg" cx="50" cy="50" r="45" stroke="#ccc" stroke-width="10" fill="none"></circle>
+                        <circle class="circle-progress" cx="50" cy="50" r="45" stroke="#ff4500" stroke-width="10" fill="none"></circle>
+                    </svg>
+                    <span class="timer-text">Ready</span>
+                </div>
+                <button class="start-timer-btn">Start Timer</button>
             </div>
-            <button class="start-timer-btn">Start Timer</button>
-        </div>             
         </div>
     `;
 
@@ -96,8 +109,7 @@ function createItemElement(item) {
     const circularIcon = itemElement.querySelector('.circular-icon');
 
     startButton.addEventListener('click', () => {
-        startButton.disabled = true; // Disable the button after starting the timer
-        startTimer(item.timerDuration, timerText, circularIcon);
+        startTimer(item.timerDuration, timerText, circularIcon, startButton);
     });
 
     return itemElement;
