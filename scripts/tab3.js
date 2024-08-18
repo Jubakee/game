@@ -100,7 +100,7 @@ function displayEquippedItems() {
     });
 
     // Update total profit in the stats container
-    totalProfitElement.textContent = '+' + totalProfit;
+    totalProfitElement.textContent = '+' + playerData.playerIncome;
 }
 
 displayEquippedItems();

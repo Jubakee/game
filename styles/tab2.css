@@ -144,7 +144,6 @@ h2 {
     color: #fff; /* White color for emphasis */
     padding: 20px;
     background-color: #1e1e1e; /* Dark background */
-    border-radius: 5px 5px 0 0; /* Only top corners rounded */
 }
 
 #overlay-item-image {
