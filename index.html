@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="styles/modals.css">
     <link rel="stylesheet" href="styles/tab4.css">
     <link rel="stylesheet" href="styles/tab3.css">
+    <link rel="stylesheet" href="styles/tab1.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <!-- <style>
@@ -43,8 +44,12 @@
         </div>
 
         <main class="main-content">
+            
             <section id="tab1" class="tab-content">
-                <h2>Tab 1</h2>
+                <div id="item-list" class="item-list">
+                    <!-- Items will be inserted here dynamically -->
+                  </div> 
+                  
             </section>
 
             <section id="tab2" class="tab-content">
@@ -96,7 +101,7 @@
         <div class="footer">
             <div class="footer-item" data-tab="tab1">
                 <img src="assets/currency.png" alt="Earn" class="footer-icon">
-                <span class="footer-text">EARN</span>
+                <span class="footer-text">PLAY</span>
             </div>
             <div class="footer-item" data-tab="tab2">
                 <img src="assets/currency.png" alt="Shop" class="footer-icon">
@@ -104,7 +109,7 @@
             </div>
             <div class="footer-item" data-tab="tab3">
                 <img src="assets/currency.png" alt="Character" class="footer-icon">
-                <span class="footer-text">AVATAR</span>
+                <span class="footer-text">EQUIPMENT</span>
             </div>
             <div class="footer-item" data-tab="tab4">
                 <img src="assets/currency.png" alt="Bag" class="footer-icon">
@@ -197,5 +202,6 @@
     <script src="scripts/tab4.js"></script>
     <script src="scripts/tab5.js"></script>
     <script src="scripts/tab3.js"></script>
+    <script src="scripts/tab1.js"></script>
 </body>
 </html>

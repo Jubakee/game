@@ -77,6 +77,7 @@
 }
 
 .item-name h3{
+
 font-size: 16px;
 }
 
@@ -163,6 +164,8 @@ font-size: 16px;
     display: flex; /* Use flexbox for alignment */
     align-items: center; /* Center align items vertically */
     justify-content: center; /* Center align items horizontally */
+    border-radius: 0px 0px 0 0; /* Only top corners rounded */
+
 }
 
 .currency-icon {
